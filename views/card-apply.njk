@@ -1,0 +1,301 @@
+{% extends 'util/card.njk' %} {% block title %}  {%
+endblock %} {% block css %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css"
+/>
+<link rel="stylesheet" href="/css/main.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+/>
+{% endblock %} {% block header %}{% endblock %} {% block content %}
+<div id="stars">
+  <div id="star"></div>
+  <div id="star2"></div>
+  <div id="star3"></div>
+</div>
+
+<div class="wrapper">
+  <h1 class="mt-5">信用卡</h1>
+  <h2>線上申請</h2>
+  <div class="main-agileinfo container">
+    <div class="agileits-top">
+      <p class="condition text-primary-emphasis">申請條件說明</p>
+      <span>
+        <i class="fa-solid fa-circle-exclamation"></i>
+        僅限本國人正卡申請。</span
+      >
+      <br />
+      <span>
+        <i class="fa-solid fa-circle-exclamation"></i> 年滿 18
+        歲以及穩定收入。</span
+      >
+
+      <h5 class="my-3 fw-bolder text-info">請輸入以下資訊</h5>
+
+      <hr />
+
+      <form id="myForm" action="#" method="post">
+        <div class="borleft">卡片品牌</div>
+
+        <div class="card-type">
+          <div class="tabs">
+            <input type="radio" id="radio-1" name="tabs" checked />
+            <label class="tab" for="radio-1">VISA</label>
+            <input type="radio" id="radio-2" name="tabs" />
+            <label class="tab" for="radio-2">MasterCard</label>
+            <input type="radio" id="radio-3" name="tabs" />
+            <label class="tab" for="radio-3">JCB</label>
+            <span class="glider"></span>
+          </div>
+        </div>
+
+        <div id="card-show" class="sliders w-100 py-2">
+          <div class="slider slider-for">
+            {% for card in cardsData.VISA %}
+            <div>
+              <div class="ratio ratio-16x9">
+                <img
+                  src="{{ card.src }}"
+                  class="img-fluid rounded mx-auto d-block h-100"
+                  alt="{{ card.alt }}"
+                />
+              </div>
+              <h5 class="text-center pt-3">{{ card.alt }}</h5>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault{{ loop.index - 1 }}"
+                />
+                <label
+                  class="form-check-label"
+                  for="flexRadioDefault{{ loop.index - 1 }}"
+                  >選擇此卡</label
+                >
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="slider slider-nav">
+            {% for card in cardsData.VISA %}
+            <div class="card" style="width: 18rem">
+              <div class="ratio ratio-16x9">
+                <img
+                  src="{{ card.src }}"
+                  class="img-fluid rounded mx-auto d-block h-100"
+                  alt=""
+                />
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="borleft my-4">基本資料</div>
+
+        <input
+          id="ID-number"
+          class="text"
+          type="text"
+          name="Username"
+          placeholder="身分證字號"
+          maxlength="10"
+          required=""
+        />
+        <span id="ID-alert" class="mb-1 msg_alert"
+          >請檢查身分證輸入是否正確</span
+        >
+        <label for="birthday my-4">出生年月日：</label>
+        <input
+          class="text"
+          type="text"
+          id="birthday"
+          name="birthday"
+          placeholder="YYYY/MM/DD"
+          maxlength="10"
+          required=""
+        />
+        <span id="birthday-alert" class="mb-1 reqtxt msg_alert"
+          >▲ 請輸入正確日期格式</span
+        >
+        <div class="row align-items-center mx-0">
+          <label class="col-sm-auto p-0 pe-sm-2">驗證碼</label
+          ><input
+            inputmode="numeric"
+            maxlength="4"
+            id="captcha-input"
+            class="text col-sm-5 w-auto"
+            type="text"
+            required
+          />
+          <div class="col-sm-5 ps-md-2">
+            <img
+              id="captcha-img"
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAoCAYAAAAIeF9DAAAAAXNSR0IArs4c6QAAGWtJREFUaEOl2wWwV9UWBvB97O4WC7s7sbvAVsTuAGtEUdRxQDEBA1TERMUOMBEDAztRUWyxO7DzvPmtN4s53gcPH2/P3Lnc//+cvdf61re+tfY+h2rgwIH1Sy+9VD744IPy/fffl/nnn7/89ttvZYUVVijrrbdeGTRoUJl++unLe++9V+aaa66yyCKLlE8++aRMM8005Y8//iifffZZ+fPPP8tCCy1UFl100TJ06NDyzTfflEknnbRsu+225eWXXy6//PJLefvtt+Ma85h/2mmnjbnef//98sUXX5Tllluu/PXXXzHnxx9/XLbZZpvy/PPPl+HDh5evv/66TDfddGXuuecuCyywQJl99tnLVFNNVX788ccyZsyYsvzyy5fbbrutrL322mXqqacuL774Yvw21++//x7/rqqqvPDCC2HvrLPOWtZdd93ywAMPlG+//bZsuOGGZamlliorrbRSueyyy8L+0aNHx+fmuP/++0ubNm3ivvnmmy/8HDZsWJlhhhli3rvuuiu+c8+HH3441kY48ennn38uG2+8cfn111/LiiuuWCaZZJLy7rvvhn+wmXfeeeP3wgsvXKoxY8bUF110UQC52mqrhQEunG222cLhNddcMwASjMcee6zMMsssschHH30UBpxxxhlhjMUnn3zyUtd1gPTOO++UySabLAIh2N99911ZcMEFS/v27eMagDz44IPh4KhRo+I7IDNesH335ZdfxlrPPvtsBNDnW2+9dcx70003lR9++CFs3muvveJv87LTXOwD9pRTThk+CeSTTz5ZpphiilgPwGxCkjPPPDP+3nzzzcvMM89cRowYUV555ZVYGxEQYvvtty9zzDFHee211+IzP2x96623wja2zzTTTIGVH+DCD/hIYCDe4osvHjYJ5pVXXlnWWGONINirr74a5KmGDRtWn3POORE92bHpppuWp59+OoBaf/31g3kAfeONN8oxxxwTrMIK2fTVV1+VeeaZJ8DDLkF0P6P97T7Z5ZoLL7wwggRkAALm2muvDQBXXXXVcIZzbGA01hx44IFlhx12KNttt1155JFHxgbefM8880wExvWABT6HZN+SSy4ZRPAZUD7//PPIdgHlF/+Qiw0//fRTfNe6desATFBn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"
+            />&nbsp;
+            <a id="refresh-btn" class="refresh" style="cursor: pointer">
+              <img src="https://ob.ctbcbank.com/card/img/refresh.jpg" />
+            </a>
+          </div>
+        </div>
+        <span id="captcha-alert" class="mb-1 msg_alert">驗證碼錯誤</span>
+
+        <div class="mt-5">
+          <hr />
+          <p class="text-danger">
+            <img src="https://ob.ctbcbank.com/card/img/wen-red.png" alt="" />
+            請務必點擊以下事項與條款，並詳閱相關內容，以確保自身權益。
+          </p>
+          <div id="checkbox_group">
+            <div class="d-flex">
+              <div class="me-1">
+                <input type="checkbox" value="0" />
+              </div>
+              <div>
+                <span>本人已詳閱</span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person">信用卡約定條款</span></a
+                  ><span>、</span></span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person">信用卡須知注意事項</span></a
+                  ><span>、</span></span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person">信用卡申請同意聲明事項</span></a
+                  ><!----></span
+                ><span>，並同意其條款。</span
+                ><span
+                  class="mb-1 reqtxt msg_alert dinb cc_cursor show"
+                  style="display: none"
+                  >(若未勾選，恕無法申請)</span
+                >
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-1"><input type="checkbox" value="1" /></div>
+              <div>
+                <span>本人已詳閱</span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person"
+                      >聯名卡暨儲值卡功能同意條款及聲明事項</span
+                    ></a
+                  ><!----></span
+                ><span>，並同意其條款。</span
+                ><span
+                  class="mb-1 reqtxt msg_alert dinb cc_cursor show"
+                  style="display: none"
+                  >(若未勾選，恕無法申請)</span
+                >
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-1"><input type="checkbox" value="2" /></div>
+              <div>
+                <span>本人已詳閱</span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person">儲值卡同意條款</span></a
+                  ><!----></span
+                ><span>，並同意其條款。</span
+                ><span
+                  class="mb-1 reqtxt msg_alert dinb cc_cursor show"
+                  style="display: none"
+                  >(若未勾選，恕無法申請)</span
+                >
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-1"><input type="checkbox" value="3" /></div>
+              <div>
+                <span>本人已詳閱</span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person"
+                      >個人網路銀行暨行動銀行服務條款</span
+                    ></a
+                  ><!----></span
+                ><span>，並同意其條款。</span
+                ><span
+                  class="mb-1 reqtxt msg_alert dinb cc_cursor show"
+                  style="display: none"
+                  >(若未勾選，恕無法申請)</span
+                >
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-1"><input type="checkbox" value="4" /></div>
+              <div>
+                <span>本人已詳閱</span
+                ><span
+                  ><a class="pointer"><span class="person">個資法條款</span></a
+                  ><!----></span
+                ><span>，並同意其條款。</span>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-1"><input type="checkbox" value="5" /></div>
+              <div>
+                <span>本人同意</span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person">同意降等條款</span></a
+                  ><!----></span
+                ><span
+                  >貴行於本人無法獲發所申請等級卡片時，得改核發次等級卡片。</span
+                ><!---->
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-1"><input type="checkbox" value="6" /></div>
+              <div>
+                <span>本人同意</span
+                ><span
+                  ><a class="pointer"
+                    ><span class="person">專人聯絡同意事項</span></a
+                  ><!----></span
+                ><span
+                  >，後續如未能完成申請，
+                  貴行得依本人本次提供之聯絡電話，指派專人來電服務。</span
+                ><!---->
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-1"><input type="checkbox" value="7" /></div>
+              <div>
+                <span
+                  >本人同意貴行於核卡後發送簡訊通知，提供本人預借現金密碼設定之相關說明。</span
+                ><span
+                  ><a class="pointer"><span class="person"> </span></a
+                  ><!----></span
+                ><span></span
+                ><!---->
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <input
+          id="disabledLink"
+          type="submit"
+          class="btn_area disable"
+          value="下一步"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block footer %}{% endblock %} {% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script type="module" src="/js/cardApply.js"></script>
+{% endblock %}

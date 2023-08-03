@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 
-const HTTP_PORT = process.env.HTTP_PORT || 8080;
+const HTTP_PORT = process.env.HTTP_PORT || 5000;
 const app = express();
 
 // static folder

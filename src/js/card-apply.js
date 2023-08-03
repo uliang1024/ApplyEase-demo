@@ -526,8 +526,8 @@ form.addEventListener("submit", function (event) {
         captchaInput.style.animation = "";
       });
     } else {
-        captchaAlert.classList.remove("show");
-        form.submit();
+      captchaAlert.classList.remove("show");
+      form.submit();
     }
   } else {
     const firstInvalidElement = document.querySelector(".invalid");

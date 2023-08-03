@@ -13,6 +13,12 @@ router.get("/card-apply", async (req, res) => {
 
     res.render("card-apply", { cardsData });
   });
+  req.session.formSubmitted = false;
+});
+
+router.post("/card-apply", async (req, res) => {
+  req.session.formSubmitted = true;
+  res.redirect("/card-apply/process");
 });
 
 export default router;

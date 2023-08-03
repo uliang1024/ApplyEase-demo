@@ -14,6 +14,7 @@ export default {
     index: "./src/js/index.js",
     card: "./src/js/card.js",
     cardApply: "./src/js/card-apply.js",
+    cardApplyProcess: "./src/js/card-apply-process.js",
   },
   output: {
     path: path.join(__dirname, "public/js"),

@@ -1,0 +1,138 @@
+{% extends 'util/card.njk' %}
+{% block title %}{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="/css/main.css"/>
+{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+
+  <div id="card-process" class="wrapper">
+    <h1>XXXXXXXXXxxxx</h1>
+
+    <div class="form-progress">
+      <progress
+              class="form-progress-bar"
+              min="0"
+              max="100"
+              value="0"
+              step="33"
+              aria-labelledby="form-progress-completion"
+            ></progress>
+
+      <div class="form-progress-indicator one active"></div>
+      <div class="form-progress-indicator two"></div>
+      <div class="form-progress-indicator three"></div>
+      <div class="form-progress-indicator four"></div>
+
+      <p
+              id="form-progress-completion"
+              class="js-form-progress-completion sr-only"
+              aria-live="polite"
+            >
+              0% complete
+            </p>
+    </div>
+    <div class="main-agileinfo container">
+      <div class="agileits-top">
+        <div class="animation-container">
+          <!-- Step one -->
+          <div class="form-step js-form-step" data-step="1">
+            <p class="form-instructions">
+              第一步
+              </p>
+
+            <form action="" name="form-step-1">
+              <div class="fieldgroup">
+                <input type="text" name="firstName" id="firstName"/>
+                <label for="firstName">First name</label>
+              </div>
+
+              <div class="fieldgroup">
+                <input type="text" name="lastName" id="lastName"/>
+                <label for="lastName">Last name</label>
+              </div>
+
+              <div class="fieldgroup">
+                <input type="text" name="email" id="email"/>
+                <label for="email">Email</label>
+              </div>
+
+              <div class="fieldgroup">
+                <input type="text" name="postalCode" id="postalCode"/>
+                <label for="postalCode">Postal code</label>
+              </div>
+
+              <div class="buttons">
+                <button type="submit" class="btn">Continue</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step two -->
+          <div class="form-step js-form-step waiting hidden" data-step="2">
+            <p class="form-instructions">第二步</p>
+
+            <form action="" name="form-step-2">
+              <div class="fieldgroup">
+                <input type="text" name="token" id="token"/>
+                <label for="token">Token</label>
+              </div>
+
+              <div class="buttons">
+                <button type="submit" class="btn">Continue</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step three -->
+          <div class="form-step js-form-step waiting hidden" data-step="3">
+            <p class="form-instructions">第三步</p>
+
+            <form action="" name="form-step-3">
+              <div class="fieldgroup">
+                <input type="text" name="credit-card" id="credit-card"/>
+                <label for="credit-card">Credit card number</label>
+              </div>
+
+              <div class="fieldgroup">
+                <input
+                    type="text"
+                    name="credit-card-expiry"
+                    id="credit-card-expiry"
+/>
+                <label for="credit-card-expiry">Credit card expiry</label>
+              </div>
+
+              <div class="buttons">
+                <button type="submit" class="btn">Continue</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step four -->
+          <div class="form-step js-form-step waiting hidden" data-step="4">
+            <p class="form-instructions">第四步</p>
+
+            <form action="" name="form-step-4">
+              <div class="fieldgroup">
+                <input type="text" name="agreen" id="agreen"/>
+                <label for="agreen">I agree</label>
+              </div>
+
+              <div class="buttons">
+                <button type="submit" class="btn">Continue</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block script %}
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"
+    ></script>
+  <script type="module" src="/js/cardApplyProcess.js"></script>
+{% endblock %}

@@ -34,11 +34,9 @@
     "passport-google-oauth": "^2.0.0",
     "sass": "^1.49.9",
     "socket.io": "^4.5.1",
-    "webrtc-adapter": "^8.1.1",
-    "xlsx": "^0.18.5"
+    "webrtc-adapter": "^8.1.1"
   },
   "devDependencies": {
-    "@types/xlsx": "^0.0.36",
     "compression-webpack-plugin": "^10.0.0",
     "node-fetch": "^3.3.2",
     "webpack": "^5.72.0",

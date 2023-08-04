@@ -1,9 +1,12 @@
 import { Router } from "express";
+
+import userMiddleware from "./user.js";
+
 import fs from "fs";
 
 const router = Router();
 
-router.get("/card-apply", async (req, res) => {
+router.get("/card-apply", userMiddleware, async (req, res) => {
   fs.readFile("./data/json/cards.json", "utf8", (err, data) => {
     if (err) {
       console.error("讀取檔案時發生錯誤：", err);

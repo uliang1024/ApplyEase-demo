@@ -1,10 +1,12 @@
 import { Router } from "express";
 
+import userMiddleware from "./user.js";
+
 const router = Router();
 
-router.get("/card-apply/process", async (req, res) => {
+router.get("/card-apply/process", userMiddleware, async (req, res) => {
   // 检查会话中的formSubmitted变量是否为true
-  req.session.formSubmitted = true;
+  req.session.formSubmitted = true; //部署後請刪掉！！！！！！！！！！！！！！！！
   if (req.session.formSubmitted) {
     res.render("card-apply-process");
   } else {

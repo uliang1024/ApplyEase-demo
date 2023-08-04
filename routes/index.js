@@ -1,9 +1,11 @@
-import { Router } from 'express';
+import { Router } from "express";
+
+import userMiddleware from "./user.js";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-    res.render('index');
+router.get("/", userMiddleware, async (req, res) => {
+  res.render("index");
 });
 
 export default router;

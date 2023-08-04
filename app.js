@@ -16,6 +16,10 @@ import bodyParser from "body-parser";
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// cookie parser
+import cookieParser from "cookie-parser";
+app.use(cookieParser());
+
 // view engine
 import nunjucks from "nunjucks";
 nunjucks.configure("views", {
@@ -29,7 +33,7 @@ app.set("view engine", "njk");
 app.engine("njk", nunjucks.render);
 
 // session
-import session from 'express-session';
+import session from "express-session";
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -44,11 +48,13 @@ import index from "./routes/index.js";
 import cardApply from "./routes/card-apply.js";
 import getChatGPT from "./routes/getChatGPT.js";
 import cardApplyProcess from "./routes/card-apply-process.js";
+import user from "./routes/user.js";
 
 app.use(index);
 app.use(cardApply);
 app.use(getChatGPT);
 app.use(cardApplyProcess);
+app.use(user);
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -59,35 +65,15 @@ app.use(function (err, req, res, next) {
   res.send("form tampered with");
 });
 
+import mongoose from "mongoose";
 
-//mongo connection
-import { MongoClient, ServerApiVersion } from "mongodb";
-
-const uri = process.env.MONGO_API;
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_API, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-    // listen
-    app.listen(HTTP_PORT, () => {
-      console.log(`> Listening on port ${HTTP_PORT}`);
-    });
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+
+// listen
+app.listen(HTTP_PORT, () => {
+  console.log(`> Listening on port ${HTTP_PORT}`);
+});

@@ -1,3 +1,5 @@
+import "./header.js";
+
 // 使用 gsap
 gsap
   .timeline({

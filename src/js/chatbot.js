@@ -1,27 +1,3 @@
-import { apiCall } from "./util.js";
-
-const goTop = document.querySelector(".goTop");
-
-window.addEventListener("scroll", () => {
-  let scrollAmount = window.scrollY;
-
-  if (scrollAmount > 0) {
-    goTop.classList.remove("hide");
-  } else {
-    goTop.classList.add("hide");
-  }
-});
-
-goTop.addEventListener("click", function (e) {
-  e.preventDefault();
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-});
-
-// ---
-
 const chatbotToggler = document.querySelector(".chatbot-toggler");
 const closeBtn = document.querySelector(".close-btn");
 const chatbox = document.querySelector(".chatbox");
@@ -112,5 +88,3 @@ closeBtn.addEventListener("click", () =>
 chatbotToggler.addEventListener("click", () =>
   document.body.classList.toggle("show-chatbot")
 );
-
-// ---

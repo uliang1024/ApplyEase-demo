@@ -1,0 +1,58 @@
+<button class="chatbot-toggler">
+    <i class="fa-solid fa-message"></i>
+    <i class="fa-solid fa-xmark"></i>
+</button>
+
+<div class="chatbot">
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <header>
+                <h2>AI客服</h2>
+                <i class="close-btn fa-solid fa-xmark"></i>
+            </header>
+            <ul class="chatbox">
+                <li class="chat incoming">
+                    <i class="fa-solid fa-robot"></i>
+                    <p>你好👋<br/>今天我能為您提供什麼幫助？</p>
+                </li>
+            </ul>
+            <div class="chat-input">
+                <textarea
+                placeholder="Enter a message..."
+                spellcheck="false"
+                required
+              ></textarea>
+                <i id="send-btn" class="fa-solid fa-paper-plane"></i>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+            <header>
+                <h2>真人客服</h2>
+            </header>
+            <ul class="chatbox">
+                <li class="chat incoming"></li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+            <header>
+                <h2>常見問題</h2>
+            </header>
+            <ul class="chatbox">
+                <li class="chat incoming"></li>
+            </ul>
+        </div>
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                <i class="fa-solid fa-robot"></i><br/>
+                <span>AI客服</span></button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                <i class="fa-regular fa-circle-user"></i><br/>
+                <span>真人客服</span></button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+                <i class="fa-regular fa-circle-question"></i><br/>
+                <span>常見問題</span></button>
+        </div>
+    </nav>
+</div>

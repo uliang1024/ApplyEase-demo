@@ -12,7 +12,6 @@ export default {
   entry: {
     base: "./src/js/base.js",
     index: "./src/js/index.js",
-    card: "./src/js/card.js",
     cardApply: "./src/js/card-apply.js",
     cardApplyProcess: "./src/js/card-apply-process.js",
   },

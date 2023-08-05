@@ -49,12 +49,14 @@ import cardApply from "./routes/card-apply.js";
 import getChatGPT from "./routes/getChatGPT.js";
 import cardApplyProcess from "./routes/card-apply-process.js";
 import user from "./routes/user.js";
+import mongodb from "./routes/mongodb.js";
 
 app.use(index);
 app.use(cardApply);
 app.use(getChatGPT);
 app.use(cardApplyProcess);
 app.use(user);
+app.use(mongodb);
 
 // error handler
 app.use(function (err, req, res, next) {

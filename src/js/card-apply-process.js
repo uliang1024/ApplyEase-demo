@@ -1,3 +1,11 @@
+import {
+  checkID,
+  validCardNumber,
+  validCardMonthYear,
+  validBankSelect,
+  isValidTaiwanMobileNumber,
+} from "./isValid.js";
+
 var $progressBar = $("progress");
 var $animContainer = $(".animation-container");
 let value = 0;
@@ -40,7 +48,12 @@ function setupClickHandlers() {
   $('button[type="submit"]').on("click", function (event) {
     event.preventDefault();
     var $currentForm = $(this).parents(".js-form-step");
-    showNextForm($currentForm);
+    // 在前往下一步表單之前執行表單驗證
+    // const isValid = validateFormInputs($currentForm);
+    const isValid = true;//測試
+    if (isValid) {
+      showNextForm($currentForm);
+    }
   });
 
   return false;
@@ -141,3 +154,119 @@ function init() {
 }
 
 init();
+
+// -------process 1---------
+
+const choose1Btn = document.querySelector("#choose-1-btn");
+const choose2Btn = document.querySelector("#choose-2-btn");
+const choose3Btn = document.querySelector("#choose-3-btn");
+const closeFrom1Btn = document.querySelector("#close-from-1-Btn");
+const formStep1 = document.querySelector('form[name="form-step-1"]');
+const process1_1 = document.querySelector("#process-1-1");
+const process1_2 = document.querySelector("#process-1-2");
+const process1_3 = document.querySelector("#process-1-3");
+
+let currentChoose = null;
+
+// 將 process-1-X 元素添加到表單中
+choose1Btn.addEventListener("click", () => {
+  updateFormContent(process1_1, "choose-1");
+});
+
+choose2Btn.addEventListener("click", () => {
+  updateFormContent(process1_2, "choose-2");
+});
+
+choose3Btn.addEventListener("click", () => {
+  updateFormContent(process1_3, "choose-3");
+});
+
+function updateFormContent(processElement, chooseClass) {
+  if (currentChoose !== chooseClass) {
+    formStep1.innerHTML = processElement.outerHTML; // 直接複製整個 HTML 內容
+    adjustContainerHeight();
+    currentChoose = chooseClass;
+  }
+}
+
+closeFrom1Btn.addEventListener("click", () => {
+  formStep1.innerHTML = "";
+  currentChoose = null;
+  adjustContainerHeight();
+});
+
+function adjustContainerHeight() {
+  $animContainer.css({
+    paddingBottom: $('.js-form-step[data-step="1"]').height() + "px",
+  });
+}
+
+function validateFormInputs(currentForm) {
+  const submitButtonId = currentForm.find('button[type="submit"]').attr("id");
+  if (submitButtonId === "nextBtnFormStep1") {
+    switch (currentChoose) {
+      case "choose-1":
+        // A139220848;
+        if (!checkID(currentForm.find("#IDNumber").val())) {
+          return false;
+        }
+        // 5338324803977657;
+        if (!validCardNumber(currentForm.find("#creditCardNumber").val())) {
+          return false;
+        }
+        if (
+          !validCardMonthYear(
+            currentForm.find("#creditCardMonth").val(),
+            currentForm.find("#creditCardYear").val()
+          )
+        ) {
+          return false;
+        }
+        break;
+      case "choose-2":
+        if (!validBankSelect(currentForm.find("#bankSelect").val())) {
+          return false;
+        }
+        // 5338324803977657;
+        if (!validCardNumber(currentForm.find("#creditCardNumber").val())) {
+          return false;
+        }
+        if (
+          !isValidTaiwanMobileNumber(
+            currentForm.find("#taiwanMobileNumber").val()
+          )
+        ) {
+          return false;
+        }
+        break;
+      case "choose-3":
+        if (currentForm.find("#yourName").val() === "") {
+          alert("請輸入名字");
+          return false;
+        }
+        // A139220848;
+        if (!checkID(currentForm.find("#IDNumber").val())) {
+          return false;
+        }
+        if (
+          !isValidTaiwanMobileNumber(
+            currentForm.find("#taiwanMobileNumber").val()
+          )
+        ) {
+          return false;
+        }
+        break;
+      default:
+        break;
+    }
+  } else if (submitButtonId === "nextBtnFormStep2") {
+  } else if (submitButtonId === "nextBtnFormStep3") {
+  } else if (submitButtonId === "nextBtnFormStep4") {
+  }
+
+  return true;
+}
+
+// -------process 2---------
+// -------process 3---------
+// -------process 4---------

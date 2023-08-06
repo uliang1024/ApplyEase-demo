@@ -1,146 +1,224 @@
-{% extends 'util/base.njk' %}
-{% block title %}{% endblock %}
-{% block css %}{% endblock %}
-{% block header %}{% endblock %}
-{% block content %}
+{% extends 'util/base.njk' %} {% block prefab %}
 
-  <div>
-    <div id="card">
-      <div id="stars">
-        <div id="star"></div>
-        <div id="star2"></div>
-        <div id="star3"></div>
-      </div>
+<div id="process-1-1">
+  <div class="fieldgroup">
+    <input type="text" name="IDNumber" id="IDNumber" />
+    <label for="IDNumber">身分證字號</label>
+  </div>
+  <div class="fieldgroup">
+    <input type="text" name="creditCardNumber" id="creditCardNumber" />
+    <label for="creditCardNumber">他行信用卡卡號 </label>
+  </div>
+  <span
+    class="person"
+    style="font-size: 15px; text-decoration: none; color: aqua"
+    >開放持卡身分驗證金融機構</span
+  >
+  <div class="fieldgroup">
+    <span>信用卡有效月年：</span>
+    <div class="d-flex my-2">
+      <select
+        id="creditCardMonth"
+        class="form-select mx-1"
+        aria-label="Default select example"
+      >
+        <option selected>請選擇月</option>
+        {% for i in range(1, 13) %}
+        <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
+      <select
+        id="creditCardYear"
+        class="form-select mx-1"
+        aria-label="Default select example"
+      >
+        <option selected>請選擇年</option>
+        {% for i in range(23, 31) %}
+        <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
     </div>
   </div>
 
-  <div id="card-process" class="wrapper">
-    <h1>XXXXXXXXXxxxx</h1>
+  <p class="form-instructions my-5">
+    ※<span style="color: red; font-weight: bold">您輸入之卡號</span>
+    僅作為本次信用卡申請身分驗證之用，
+    <span style="color: red; font-weight: bold">並非以卡辦卡</span>
+    ，仍需檢附財力證明供本行進行審核。
+  </p>
+</div>
 
-    <div class="form-progress">
-      <progress
-              class="form-progress-bar"
-              min="0"
-              max="100"
-              value="0"
-              step="33"
-              aria-labelledby="form-progress-completion"
-            ></progress>
-
-      <div class="form-progress-indicator one active"></div>
-      <div class="form-progress-indicator two"></div>
-      <div class="form-progress-indicator three"></div>
-      <div class="form-progress-indicator four"></div>
-
-      <p
-              id="form-progress-completion"
-              class="js-form-progress-completion sr-only"
-              aria-live="polite"
-            >
-              0% complete
-            </p>
+<div id="process-1-2">
+  <div class="fieldgroup">
+    <span>他行銀行別</span>
+    <div class="d-flex my-2">
+      <select
+        id="bankSelect"
+        class="form-select mx-1"
+        aria-label="Default select example"
+      >
+        <option selected>請選擇</option>
+        {% for code in Code %}
+        <option value="{{ code.code }}">{{ code.code }} {{ code.name }}</option>
+        {% endfor %}
+      </select>
     </div>
-    <div class="main-agileinfo container">
-      <div class="agileits-top">
-        <div class="animation-container">
-          <!-- Step one -->
-          <div class="form-step js-form-step" data-step="1">
-            <p class="form-instructions">
-              第一步
-              </p>
+  </div>
+  <div class="fieldgroup">
+    <input type="text" name="creditCardNumber" id="creditCardNumber" />
+    <label for="creditCardNumber">他行信用卡卡號</label>
+  </div>
+  <div class="fieldgroup">
+    <input type="text" name="taiwanMobileNumber" id="taiwanMobileNumber" />
+    <label for="taiwanMobileNumber">留存於他行之行動電話</label>
+  </div>
+</div>
 
-            <form action="" name="form-step-1">
-              <div class="fieldgroup">
-                <input type="text" name="firstName" id="firstName"/>
-                <label for="firstName">First name</label>
-              </div>
+<div id="process-1-3">
+  <div class="fieldgroup">
+    <input type="text" name="yourName" id="yourName" />
+    <label for="yourName">姓名</label>
+  </div>
+  <div class="fieldgroup">
+    <input type="text" name="IDNumber" id="IDNumber" />
+    <label for="IDNumber">身分證字號</label>
+  </div>
+  <div class="fieldgroup">
+    <input type="text" name="taiwanMobileNumber" id="taiwanMobileNumber" />
+    <label for="taiwanMobileNumber">行動電話</label>
+  </div>
+</div>
 
-              <div class="fieldgroup">
-                <input type="text" name="lastName" id="lastName"/>
-                <label for="lastName">Last name</label>
-              </div>
+{% endblock prefab %} {% block title %}{% endblock %} {% block css %}{% endblock
+%} {% block header %}{% endblock %} {% block content %}
 
-              <div class="fieldgroup">
-                <input type="text" name="email" id="email"/>
-                <label for="email">Email</label>
-              </div>
+<div>
+  <div id="card">
+    <div id="stars">
+      <div id="star"></div>
+      <div id="star2"></div>
+      <div id="star3"></div>
+    </div>
+  </div>
+</div>
 
-              <div class="fieldgroup">
-                <input type="text" name="postalCode" id="postalCode"/>
-                <label for="postalCode">Postal code</label>
-              </div>
+<div id="card-process" class="wrapper">
+  <h1>XXXXXXXXXxxxx</h1>
 
-              <div class="buttons">
-                <button type="submit" class="btn">Continue</button>
-              </div>
-            </form>
+  <div class="form-progress">
+    <progress
+      class="form-progress-bar"
+      min="0"
+      max="100"
+      value="0"
+      step="33"
+      aria-labelledby="form-progress-completion"
+    ></progress>
+
+    <div class="form-progress-indicator one active"></div>
+    <div class="form-progress-indicator two"></div>
+    <div class="form-progress-indicator three"></div>
+    <div class="form-progress-indicator four"></div>
+
+    <p
+      id="form-progress-completion"
+      class="js-form-progress-completion sr-only"
+      aria-live="polite"
+    >
+      0% complete
+    </p>
+  </div>
+  <div class="main-agileinfo container">
+    <div class="agileits-top">
+      <div class="animation-container">
+        <!-- Step one -->
+        <div class="form-step js-form-step" data-step="1">
+          <p class="form-instructions" style="font-size: 2em">請選擇申請方式</p>
+          <p class="form-instructions">
+            以他行信用卡，他行帳戶進行分驗證，快速免郵寄!
+          </p>
+          <div class="buttons" style="justify-content: space-evenly">
+            <button id="choose-1-btn" class="btn">他行信用卡</button>
+            <button id="choose-2-btn" class="btn">他行帳戶</button>
+            <button id="choose-3-btn" class="btn">專人聯繫</button>
           </div>
-
-          <!-- Step two -->
-          <div class="form-step js-form-step waiting hidden" data-step="2">
-            <p class="form-instructions">第二步</p>
-
-            <form action="" name="form-step-2">
-              <div class="fieldgroup">
-                <input type="text" name="token" id="token"/>
-                <label for="token">Token</label>
-              </div>
-
-              <div class="buttons">
-                <button type="submit" class="btn">Continue</button>
-              </div>
-            </form>
+          <form action="" name="form-step-1"></form>
+          <div class="buttons" style="justify-content: space-evenly">
+            <button id="close-from-1-Btn" class="btn">上一步</button>
+            <button id="nextBtnFormStep1" type="submit" class="btn">
+              下一步
+            </button>
           </div>
+        </div>
 
-          <!-- Step three -->
-          <div class="form-step js-form-step waiting hidden" data-step="3">
-            <p class="form-instructions">第三步</p>
+        <!-- Step two -->
+        <div class="form-step js-form-step waiting hidden" data-step="2">
+          ※上傳檔案格式限JPG、JPEG並勿加密，檔名請勿使用特殊符號。<br />
+          ※總上傳檔案大小限30MB<br />
+          <hr>
+          <p class="form-instructions" style="font-size: 2em">請上傳身分證</p>
+          <p class="form-instructions">身分上傳說明</p>
 
-            <form action="" name="form-step-3">
-              <div class="fieldgroup">
-                <input type="text" name="credit-card" id="credit-card"/>
-                <label for="credit-card">Credit card number</label>
-              </div>
+          <form action="" name="form-step-2">
+            <div class="fieldgroup"></div>
 
-              <div class="fieldgroup">
-                <input
-                    type="text"
-                    name="credit-card-expiry"
-                    id="credit-card-expiry"
-/>
-                <label for="credit-card-expiry">Credit card expiry</label>
-              </div>
+            <div class="buttons">
+              <button id="nextBtnFormStep2" type="submit" class="btn">
+                Continue
+              </button>
+            </div>
+          </form>
+        </div>
 
-              <div class="buttons">
-                <button type="submit" class="btn">Continue</button>
-              </div>
-            </form>
-          </div>
+        <!-- Step three -->
+        <div class="form-step js-form-step waiting hidden" data-step="3">
+          <p class="form-instructions">第三步</p>
 
-          <!-- Step four -->
-          <div class="form-step js-form-step waiting hidden" data-step="4">
-            <p class="form-instructions">第四步</p>
+          <form action="" name="form-step-3">
+            <div class="fieldgroup">
+              <input type="text" name="credit-card" id="credit-card" />
+              <label for="credit-card">Credit card number</label>
+            </div>
 
-            <form action="" name="form-step-4">
-              <div class="fieldgroup">
-                <input type="text" name="agreen" id="agreen"/>
-                <label for="agreen">I agree</label>
-              </div>
+            <div class="fieldgroup">
+              <input
+                type="text"
+                name="credit-card-expiry"
+                id="credit-card-expiry"
+              />
+              <label for="credit-card-expiry">Credit card expiry</label>
+            </div>
 
-              <div class="buttons">
-                <button type="submit" class="btn">Continue</button>
-              </div>
-            </form>
-          </div>
+            <div class="buttons">
+              <button id="nextBtnFormStep3" type="submit" class="btn">
+                Continue
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Step four -->
+        <div class="form-step js-form-step waiting hidden" data-step="4">
+          <p class="form-instructions">第四步</p>
+
+          <form action="" name="form-step-4">
+            <div class="fieldgroup">
+              <input type="text" name="agreen" id="agreen" />
+              <label for="agreen">I agree</label>
+            </div>
+
+            <div class="buttons">
+              <button id="nextBtnFormStep4" type="submit" class="btn">
+                Continue
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-{% endblock %}
-{% block footer %}{% endblock %}
-{% block script %}
-  <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"
-    ></script>
-  <script type="module" src="/js/cardApplyProcess.js"></script>
+</div>
+{% endblock %} {% block footer %}{% endblock %} {% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script type="module" src="/js/cardApplyProcess.js"></script>
 {% endblock %}

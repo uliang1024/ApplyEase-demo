@@ -1,8 +1,9 @@
 import { processChatGPTRequest, setUserMassenge } from "./util.js";
 
 const chatbotToggler = document.querySelector(".chatbot-toggler");
-const closeBtn = document.querySelector(".close-btn");
+const closeBtns = document.querySelectorAll(".close-btn");
 const chatbox = document.querySelector(".chatbox");
+const chatInputDiv = document.querySelector(".chat-input");
 const chatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector("#send-btn");
 
@@ -30,9 +31,14 @@ const generateResponse = async (chatElement) => {
   messageElement.textContent = data.choices[0].message.content.trim();
 
   chatbox.scrollTo(0, chatbox.scrollHeight);
+
+  chatInput.disabled = false;
+  chatInputDiv.style.backgroundColor = "#FFF";
 };
 
 const handleChat = async () => {
+  chatInput.disabled = true;
+  chatInputDiv.style.backgroundColor = "darkgray";
   userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
   if (!userMessage) return;
 
@@ -81,9 +87,11 @@ chatInput.addEventListener("keydown", (e) => {
 });
 
 sendChatBtn.addEventListener("click", handleChat);
-closeBtn.addEventListener("click", () =>
-  document.body.classList.remove("show-chatbot")
-);
+closeBtns.forEach((closeBtn) => {
+  closeBtn.addEventListener("click", () => {
+    document.body.classList.remove("show-chatbot");
+  });
+});
 chatbotToggler.addEventListener("click", () =>
   document.body.classList.toggle("show-chatbot")
 );

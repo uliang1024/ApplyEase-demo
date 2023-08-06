@@ -46,7 +46,7 @@
   }
 
   .fieldgroup {
-    margin: 1.5rem 0;
+    margin-top: 1.5rem;
     position: relative;
   }
 
@@ -59,6 +59,7 @@
     transition: 0.2s ease-out;
     opacity: 0.5;
     will-change: top, font-size;
+    pointer-events: none;
   }
   label:hover {
     cursor: text;
@@ -98,6 +99,7 @@
     border-radius: 5px;
     border: 2px solid transparent;
     min-width: 45px !important;
+    width: 30%;
   }
   .btn:hover,
   .btn.hover {

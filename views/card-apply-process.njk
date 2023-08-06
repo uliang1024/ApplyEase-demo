@@ -103,7 +103,7 @@
 </div>
 
 <div id="card-process" class="wrapper">
-  <h1>XXXXXXXXXxxxx</h1>
+  <h1 class="mt-5">信用卡線上申辦流程</h1>
 
   <div class="form-progress">
     <progress
@@ -137,17 +137,25 @@
           <p class="form-instructions">
             以他行信用卡，他行帳戶進行分驗證，快速免郵寄!
           </p>
-          <div class="buttons" style="justify-content: space-evenly">
+          <div
+            id="choose"
+            class="buttons"
+            style="justify-content: space-evenly"
+          >
             <button id="choose-1-btn" class="btn">他行信用卡</button>
             <button id="choose-2-btn" class="btn">他行帳戶</button>
             <button id="choose-3-btn" class="btn">專人聯繫</button>
           </div>
           <form action="" name="form-step-1"></form>
-          <div class="buttons" style="justify-content: space-evenly">
-            <button id="close-from-1-Btn" class="btn">上一步</button>
-            <button id="nextBtnFormStep1" type="submit" class="btn">
-              下一步
-            </button>
+          <div class="buttons row" style="justify-content: space-evenly">
+            <div class="col-md-6 my-1">
+              <button id="close-from-1-Btn" class="btn w-100">上一步</button>
+            </div>
+            <div class="col-md-6 my-1">
+              <button id="nextBtnFormStep1" class="btn w-100" type="submit">
+                下一步
+              </button>
+            </div>
           </div>
         </div>
 
@@ -155,16 +163,104 @@
         <div class="form-step js-form-step waiting hidden" data-step="2">
           ※上傳檔案格式限JPG、JPEG並勿加密，檔名請勿使用特殊符號。<br />
           ※總上傳檔案大小限30MB<br />
-          <hr>
-          <p class="form-instructions" style="font-size: 2em">請上傳身分證</p>
-          <p class="form-instructions">身分上傳說明</p>
-
+          <hr />
           <form action="" name="form-step-2">
-            <div class="fieldgroup"></div>
+            <p class="form-instructions" style="font-size: 2em">身分正反面</p>
+            <p class="form-instructions">請上傳身分上傳</p>
+            <div class="row my-3">
+              {% set ID = ["身分證正面", "身分證反面"] %} {% for i in range(0,2)
+              %}
+              <div class="col-md-6">
+                <span>{{ ID[i] }}</span>
+                <div class="image-upload-wrap">
+                  <input
+                    id="readURL{{ i }}"
+                    class="file-upload-input"
+                    type="file"
+                    name="file{{ i }}"
+                    accept="image/*"
+                    style="
+                      display: block;
+                      position: absolute;
+                      margin: 0;
+                      padding: 0;
+                      width: 100%;
+                      height: 100%;
+                      outline: none;
+                      opacity: 0;
+                      cursor: pointer;
+                    "
+                  />
+                  <div class="drag-text" style="display: block">
+                    <h3>拖放文件或選擇添加圖像</h3>
+                  </div>
+                  <div class="file-upload-content" style="display: none">
+                    <img class="file-upload-image" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                      <button
+                        type="button"
+                        class="remove-image"
+                        style="z-index: 999"
+                      >
+                        刪除 <span class="image-title">上傳的圖片</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <p class="form-instructions" style="font-size: 2em">
+              財力證明
+            </p>
+            <p class="form-instructions">請上傳財力證明</p>
+
+            <div class="row my-3">
+              {% for i in range(0,2) %}
+              <div class="col-md-6">
+                <div class="image-upload-wrap">
+                  <input
+                    id="readURL{{ i }}"
+                    class="file-upload-input"
+                    type="file"
+                    name="file{{ i }}"
+                    accept="image/*"
+                    style="
+                      display: block;
+                      position: absolute;
+                      margin: 0;
+                      padding: 0;
+                      width: 100%;
+                      height: 100%;
+                      outline: none;
+                      opacity: 0;
+                      cursor: pointer;
+                    "
+                  />
+                  <div class="drag-text" style="display: block">
+                    <h3>拖放文件或選擇添加圖像</h3>
+                  </div>
+                  <div class="file-upload-content" style="display: none">
+                    <img class="file-upload-image" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                      <button
+                        type="button"
+                        class="remove-image"
+                        style="z-index: 999"
+                      >
+                        刪除 <span class="image-title">上傳的圖片</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
 
             <div class="buttons">
-              <button id="nextBtnFormStep2" type="submit" class="btn">
-                Continue
+              <button id="nextBtnFormStep2" type="submit" class="btn mt-5">
+                下一步
               </button>
             </div>
           </form>
@@ -191,7 +287,7 @@
 
             <div class="buttons">
               <button id="nextBtnFormStep3" type="submit" class="btn">
-                Continue
+                下一步
               </button>
             </div>
           </form>
@@ -209,7 +305,7 @@
 
             <div class="buttons">
               <button id="nextBtnFormStep4" type="submit" class="btn">
-                Continue
+                下一步
               </button>
             </div>
           </form>

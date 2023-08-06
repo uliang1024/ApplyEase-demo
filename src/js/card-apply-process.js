@@ -50,7 +50,7 @@ function setupClickHandlers() {
     var $currentForm = $(this).parents(".js-form-step");
     // 在前往下一步表單之前執行表單驗證
     // const isValid = validateFormInputs($currentForm);
-    const isValid = true;//測試
+    const isValid = true; //測試
     if (isValid) {
       showNextForm($currentForm);
     }
@@ -155,6 +155,24 @@ function init() {
 
 init();
 
+function changeCurrentForm() {
+  const formSteps = document.querySelectorAll(".form-step");
+  const formStepArray = Array.from(formSteps);
+
+  const visibleFormSteps = formStepArray.filter(
+    (element) => !element.classList.contains("hidden")
+  );
+
+  const firstFormStep = visibleFormSteps[0];
+  const height = firstFormStep.offsetHeight;
+
+  $animContainer.css({
+    paddingBottom: height + "px",
+  });
+}
+
+window.addEventListener("resize", changeCurrentForm);
+
 // -------process 1---------
 
 const choose1Btn = document.querySelector("#choose-1-btn");
@@ -257,7 +275,13 @@ function validateFormInputs(currentForm) {
         }
         break;
       default:
-        break;
+        const choose = document.querySelector("#choose");
+        choose.style.animation = "shake 0.5s ease";
+        choose.addEventListener("animationend", () => {
+          // 動畫結束後移除震動效果
+          choose.style.animation = "";
+        });
+        return false;
     }
   } else if (submitButtonId === "nextBtnFormStep2") {
   } else if (submitButtonId === "nextBtnFormStep3") {
@@ -268,5 +292,107 @@ function validateFormInputs(currentForm) {
 }
 
 // -------process 2---------
+
+const imageUploadWraps = document.querySelectorAll(".image-upload-wrap");
+const readURLs = document.querySelectorAll(".file-upload-input");
+const removeImages = document.querySelectorAll(".remove-image");
+const dragTexts = document.querySelectorAll(".drag-text");
+const imageUploadContents = document.querySelectorAll(".file-upload-content");
+const imagePreviews = document.querySelectorAll(".file-upload-image");
+
+function showImagePreview(file, index) {
+  const allowedExtensions = /(\.jpg|\.jpeg)$/i;
+  const maxSize = 30 * 1024 * 1024; // 30MB in bytes
+
+  if (
+    !file.type.match(/^image\//) ||
+    !allowedExtensions.exec(file.name) ||
+    file.size > maxSize
+  ) {
+    alert("請上傳 JPG 或 JPEG 格式且大小不超過 30MB 的檔案。");
+    readURLs[index].value = ""; // Clear the input
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    imagePreviews[index].src = e.target.result;
+    imageUploadContents[index].style.display = "block";
+    dragTexts[index].style.display = "none";
+  };
+  reader.readAsDataURL(file);
+
+  changeCurrentForm();
+}
+
+readURLs.forEach((readURL, index) => {
+  readURL.addEventListener("change", () =>
+    showImagePreview(readURL.files[0], index)
+  );
+});
+
+removeImages.forEach((removeImage, index) => {
+  removeImage.addEventListener("click", () => {
+    readURLs[index].value = "";
+    imagePreviews[index].src = "";
+    imageUploadContents[index].style.display = "none";
+    dragTexts[index].style.display = "block";
+    changeCurrentForm();
+  });
+});
+
+function handleFiles(files, index) {
+  for (const file of files) {
+    showImagePreview(file, index);
+  }
+  imageUploadWraps[index].classList.remove("upload_zone_enter");
+}
+
+function createDragenterHandler(index) {
+  return function (e) {
+    dragenter(imageUploadWraps[index], e);
+  };
+}
+
+function createDropHandler(index) {
+  return function (e) {
+    drop(index, e);
+  };
+}
+
+imageUploadWraps.forEach((imageUploadWrap, index) => {
+  const dragenterHandler = createDragenterHandler(index);
+  const dropHandler = createDropHandler(index);
+
+  imageUploadWrap.addEventListener("dragenter", dragenterHandler, false);
+  imageUploadWrap.addEventListener("dragover", dragover, false);
+  imageUploadWrap.addEventListener("drop", dropHandler, false);
+
+  imageUploadWrap.addEventListener(
+    "dragleave",
+    () => imageUploadWrap.classList.remove("upload_zone_enter"),
+    false
+  );
+});
+
+function dragenter(imageUploadWrap, e) {
+  imageUploadWrap.classList.add("upload_zone_enter");
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function dragover(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function drop(index, e) {
+  e.stopPropagation();
+  e.preventDefault();
+  const dt = e.dataTransfer;
+  const files = dt.files;
+  handleFiles(files, index);
+}
+
 // -------process 3---------
 // -------process 4---------

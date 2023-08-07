@@ -89,6 +89,42 @@
   </div>
 </div>
 
+<div id="new-upload-wrap" class="row my-3">
+  {% for i in range(0,2) %}
+  <div class="col-md-6">
+    <div class="image-upload-wrap h-100">
+      <input
+        class="file-upload-input"
+        type="file"
+        name="file"
+        accept="image/*"
+        style="
+          display: block;
+          position: absolute;
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          outline: none;
+          opacity: 0;
+          cursor: pointer;
+        "
+      />
+      <div class="drag-text" style="display: block">
+        <h3>拖放文件或選擇添加圖像</h3>
+      </div>
+      <div class="file-upload-content" style="display: none">
+        <img class="file-upload-image" src="#" alt="your image" />
+        <div class="image-title-wrap">
+          <button type="button" class="remove-image" style="z-index: 999">
+            刪除 <span class="image-title">上傳的圖片</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock prefab %} {% block title %}{% endblock %} {% block css %}{% endblock
 %} {% block header %}{% endblock %} {% block content %}
 
@@ -161,10 +197,10 @@
 
         <!-- Step two -->
         <div class="form-step js-form-step waiting hidden" data-step="2">
-          ※上傳檔案格式限JPG、JPEG並勿加密，檔名請勿使用特殊符號。<br />
-          ※總上傳檔案大小限30MB<br />
+          ※ 上傳檔案格式限JPG、JPEG並勿加密，檔名請勿使用特殊符號。<br />
+          ※ 總上傳檔案大小限30MB<br />
           <hr />
-          <form action="" name="form-step-2">
+          <form id="form-step-2" action="" name="form-step-2">
             <p class="form-instructions" style="font-size: 2em">身分正反面</p>
             <p class="form-instructions">請上傳身分上傳</p>
             <div class="row my-3">
@@ -211,15 +247,13 @@
               {% endfor %}
             </div>
 
-            <p class="form-instructions" style="font-size: 2em">
-              財力證明
-            </p>
+            <p class="form-instructions" style="font-size: 2em">財力證明</p>
             <p class="form-instructions">請上傳財力證明</p>
 
             <div class="row my-3">
               {% for i in range(0,2) %}
               <div class="col-md-6">
-                <div class="image-upload-wrap">
+                <div class="image-upload-wrap h-100">
                   <input
                     id="readURL{{ i }}"
                     class="file-upload-input"
@@ -256,6 +290,10 @@
                 </div>
               </div>
               {% endfor %}
+            </div>
+
+            <div id="add-upload-wrap">
+              <button class="btn">+上傳更多財力證明</button>
             </div>
 
             <div class="buttons">

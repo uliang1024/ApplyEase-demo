@@ -173,6 +173,30 @@ function changeCurrentForm() {
 
 window.addEventListener("resize", changeCurrentForm);
 
+// 創建一個 MutationObserver 實例
+var formStep2 = document.getElementById("form-step-2");
+var MutationObserver =
+  window.MutationObserver ||
+  window.webkitMutationObserver ||
+  window.MozMutationObserver;
+
+var recordHeight = 0;
+var mutationObserver = new MutationObserver(function (mutations) {
+  let height = window.getComputedStyle(formStep2).getPropertyValue("height");
+  if (height === recordHeight) {
+    return;
+  }
+  recordHeight = height;
+  changeCurrentForm();
+});
+
+mutationObserver.observe(formStep2, {
+  childList: true,
+  attributes: true,
+  characterData: true,
+  subtree: true,
+});
+
 // -------process 1---------
 
 const choose1Btn = document.querySelector("#choose-1-btn");
@@ -293,12 +317,12 @@ function validateFormInputs(currentForm) {
 
 // -------process 2---------
 
-const imageUploadWraps = document.querySelectorAll(".image-upload-wrap");
-const readURLs = document.querySelectorAll(".file-upload-input");
-const removeImages = document.querySelectorAll(".remove-image");
-const dragTexts = document.querySelectorAll(".drag-text");
-const imageUploadContents = document.querySelectorAll(".file-upload-content");
-const imagePreviews = document.querySelectorAll(".file-upload-image");
+let imageUploadWraps = document.querySelectorAll(".image-upload-wrap");
+let readURLs = document.querySelectorAll(".image-upload-wrap input");
+let removeImages = document.querySelectorAll(".remove-image");
+let dragTexts = document.querySelectorAll(".drag-text");
+let imageUploadContents = document.querySelectorAll(".file-upload-content");
+let imagePreviews = document.querySelectorAll(".file-upload-image");
 
 function showImagePreview(file, index) {
   const allowedExtensions = /(\.jpg|\.jpeg)$/i;
@@ -320,9 +344,8 @@ function showImagePreview(file, index) {
     imageUploadContents[index].style.display = "block";
     dragTexts[index].style.display = "none";
   };
-  reader.readAsDataURL(file);
 
-  changeCurrentForm();
+  reader.readAsDataURL(file);
 }
 
 readURLs.forEach((readURL, index) => {
@@ -337,7 +360,6 @@ removeImages.forEach((removeImage, index) => {
     imagePreviews[index].src = "";
     imageUploadContents[index].style.display = "none";
     dragTexts[index].style.display = "block";
-    changeCurrentForm();
   });
 });
 
@@ -393,6 +415,56 @@ function drop(index, e) {
   const files = dt.files;
   handleFiles(files, index);
 }
+
+const addUploadWrap = document.querySelector("#add-upload-wrap");
+const newUploadWrap = document.querySelector("#new-upload-wrap");
+
+addUploadWrap.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  const clonedUploadWrap = newUploadWrap.cloneNode(true);
+  addUploadWrap.parentNode.insertBefore(clonedUploadWrap, addUploadWrap);
+
+  imageUploadWraps = document.querySelectorAll(".image-upload-wrap");
+  readURLs = document.querySelectorAll(".image-upload-wrap input");
+  removeImages = document.querySelectorAll(".remove-image");
+  dragTexts = document.querySelectorAll(".drag-text");
+  imageUploadContents = document.querySelectorAll(".file-upload-content");
+  imagePreviews = document.querySelectorAll(".file-upload-image");
+  const startIndex = imageUploadWraps.length - 4;
+
+  for (let index = startIndex; index < imageUploadWraps.length; index++) {
+    const imageUploadWrap = imageUploadWraps[index];
+    const readURL = readURLs[index];
+    const removeImage = removeImages[index];
+    const imagePreview = imagePreviews[index];
+    const imageUploadContent = imageUploadContents[index];
+    const dragText = dragTexts[index];
+
+    readURL.addEventListener("change", () =>
+      showImagePreview(readURL.files[0], index)
+    );
+
+    removeImage.addEventListener("click", () => {
+      readURL.value = "";
+      imagePreview.src = "";
+      imageUploadContent.style.display = "none";
+      dragText.style.display = "block";
+    });
+    const dragenterHandler = createDragenterHandler(index);
+    const dropHandler = createDropHandler(index);
+
+    imageUploadWrap.addEventListener("dragenter", dragenterHandler, false);
+    imageUploadWrap.addEventListener("dragover", dragover, false);
+    imageUploadWrap.addEventListener("drop", dropHandler, false);
+
+    imageUploadWrap.addEventListener(
+      "dragleave",
+      () => imageUploadWrap.classList.remove("upload_zone_enter"),
+      false
+    );
+  }
+});
 
 // -------process 3---------
 // -------process 4---------

@@ -178,6 +178,16 @@
     border: 4px dashed #ffffff;
   }
 
+  #add-upload-wrap {
+    border: 2px gray solid;
+    .btn {
+      background-color: transparent;
+      &:focus {
+         outline: none;
+      }
+    }
+  }
+
   .btn {
     color: #fff;
     background-color: #015387;

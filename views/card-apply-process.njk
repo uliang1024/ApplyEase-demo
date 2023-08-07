@@ -306,23 +306,14 @@
 
         <!-- Step three -->
         <div class="form-step js-form-step waiting hidden" data-step="3">
-          <p class="form-instructions">第三步</p>
-
+          <p class="form-instructions" style="font-size: 2em">填寫資料</p>
+          <alert style="color: red">*</alert> 為必填欄位<br />
+          ※ 已協助進行身分證辨識，並將辨識完成資料帶入相關欄位，請務必確認。<br />
+          <hr>
+          <p class="form-instructions" style="font-size: 1.5em"><alert style="color: red">*</alert> 獲取贈品</p>
+          <p class="form-instructions">設計您的RawStone服裝</p>
           <form action="" name="form-step-3">
-            <div class="fieldgroup">
-              <input type="text" name="credit-card" id="credit-card" />
-              <label for="credit-card">Credit card number</label>
-            </div>
-
-            <div class="fieldgroup">
-              <input
-                type="text"
-                name="credit-card-expiry"
-                id="credit-card-expiry"
-              />
-              <label for="credit-card-expiry">Credit card expiry</label>
-            </div>
-
+            {% include 'util/fashionPicker.njk' %}
             <div class="buttons">
               <button id="nextBtnFormStep3" type="submit" class="btn">
                 下一步

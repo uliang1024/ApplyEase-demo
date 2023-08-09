@@ -1,0 +1,741 @@
+<div class="form-step js-form-step waiting hidden" data-step="3">
+    <p class="form-instructions largeCharacters" style="font-size: 2em">
+            填寫資料
+          </p>
+    <alert style="color: red">*</alert> 為必填欄位<br/>
+          ※ 已協助進行身分證辨識，並將辨識完成資料帶入相關欄位，請務必確認。<br/>
+    <hr/>
+    <p class="form-instructions largeCharacters" style="font-size: 1.5em">
+        <alert style="color: red">*</alert> 獲取贈品
+          </p>
+    <p class="form-instructions">選擇您的RawStone服裝配色</p>
+    <form action="" name="form-step-3">
+        {% include 'util/fashionPicker.njk' %}
+        <div id="personalBtn" class="expand-3">
+            <p
+                class="form-instructions largeCharacters"
+                style="font-size: 1.5em"
+              >
+                個人資料
+              </p>
+            <i class="fa-solid fa-circle-chevron-up expand-icon-3"></i>
+        </div>
+        <div id="personal" class="content-3 hidden">
+            <div class="fieldgroup">
+                <input type="text" name="agreen" id="agreen"/>
+                <label for="agreen"
+                  >
+                    <alert style="color: red">*</alert> 中文姓名</label
+                >
+            </div>
+            <div class="fieldgroup mt-0">
+                <input
+                  name="yo"
+                  style="font-size: 15px; text-decoration: none; width: auto"
+                  type="checkbox"
+/>
+                <span for="yo"> 使用原住民羅馬拼音姓名(例如：莫那Mona)</span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="fieldgroup">
+                        <input type="text" name="agreen" id="agreen"/>
+                        <label for="agreen">英文姓</label>
+                    </div>
+                    <span for="yo"
+                    >※請填寫與護照相同之英文姓，若您的姓氏有冠夫姓或複姓，清連續填寫無須空白，例如：歐陽「OUYANG」。</span
+                  >
+                </div>
+                <div class="col-md-6">
+                    <div class="fieldgroup">
+                        <input type="text" name="agreen" id="agreen"/>
+                        <label for="agreen">英文名</label>
+                    </div>
+                    <span for="yo">※請填寫與護照相同之英文名。</span>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <input type="text" name="agreen" id="agreen"/>
+                <label for="agreen">電子郵件</label>
+            </div>
+            <span for="yo"
+                >為響應環保及申請人個人隱私，本行將於核發卡片並完成電子信箱驗證後，以上述留存E-mail寄送信用卡權益通知、約定條款及電子帳單。E-mail請務必填寫，若有更新將以申請人最後留存於本行者為準。</span
+              >
+            <div class="fieldgroup" style="flex-direction: column">
+                <span class="my-0" style="font-size: 1.25em"
+                  >
+                    <strong>身分證發證日期</strong
+                  >
+                    <alert style="color: red">*</alert>
+                </span>
+                <div class="mx-2 row align-items-center justify-content-center">
+                    <span class="col-md-3">民國</span>
+                    <div class="col-md-3">
+                        <select
+                      id="IDCardIssueYear"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option value="0" selected>請選擇年</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select
+                      id="IDCardIssueMonth"
+                      class="form-select mx-1 hidden"
+                      aria-label="Default select example"
+                    >
+                            <option selected>請選擇月</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select
+                      id="IDCardIssueDay"
+                      class="form-select mx-1 hidden"
+                      aria-label="Default select example"
+                    >
+                            <option selected>請選擇日</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>身分證發證地點</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="IDCardIssueCounty"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(請選擇)</option>
+                            {% for county in optionsData.countyData %}
+                                <option value="{{ county.name }}">
+                                    {{ county.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>身分證發證型態</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="IDCardIssueType"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>請選擇</option>
+                            {% for idCardIssueType in optionsData.idCardIssueTypeData
+ %}
+                                <option value="{{ idCardIssueType.value }}">
+                                    {{ idCardIssueType.text }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>婚姻狀況</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="maritalStatus"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>請選擇</option>
+                            {% for maritalStatusData in optionsData.maritalStatusData
+ %}
+                                <option value="{{ maritalStatusData.value }}">
+                                    {{ maritalStatusData.text }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>最高學歷</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="highestEducation"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>請選擇</option>
+                            {% for highestEducationData in
+                            optionsData.highestEducationData %}
+                                <option value="{{ highestEducationData.value }}">
+                                    {{ highestEducationData.text }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="" class="expand-3">
+            <p
+                class="form-instructions largeCharacters"
+                style="font-size: 1.5em"
+              >
+                通訊資料
+              </p>
+            <i class="fa-solid fa-circle-chevron-up expand-icon-3"></i>
+        </div>
+
+        <div id="" class="content-3 hidden">
+            <div class="fieldgroup">
+                <span class="my-0" style="font-size: 1.25em"
+                  >
+                    <strong>戶籍地址</strong>
+                    <alert style="color: red">*</alert>
+                </span>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-6">
+                        <select
+                      class="form-select mx-1 addressCountys"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(縣市別)</option>
+                            {% for county in optionsData.countyData %}
+                                <option value="{{ county.name }}">
+                                    {{ county.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select
+                      class="form-select mx-1 addressLocalities"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(市/區/鄉/鎮)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <input type="text" name="agreen" id="agreen"/>
+                <label for="agreen">設籍里/村</label>
+            </div>
+            <div class="fieldgroup">
+                <input type="text" name="agreen" id="agreen"/>
+                <label for="agreen">請輸入</label>
+            </div>
+            <div class="fieldgroup">
+                <span
+                  class="my-0 d-flex align-items-center"
+                  style="font-size: 1.25em"
+                  >
+                    <strong>居住地址</strong>
+                    <alert style="color: red">*</alert>
+                </span>
+
+                <input
+                  id="sameAddress"
+                  name="yo"
+                  style="font-size: 15px; text-decoration: none; width: auto"
+                  type="checkbox"
+/>
+                <span for="yo"> 同戶籍地址</span>
+            </div>
+            <div id="ResidentialAddressSelect" class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-6">
+                        <select
+                      class="form-select mx-1 addressCountys"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(縣市別)</option>
+                            {% for county in optionsData.countyData %}
+                                <option value="{{ county.name }}">
+                                    {{ county.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select
+                      class="form-select mx-1 addressLocalities"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(市/區/鄉/鎮)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="ResidentialAddressInput" class="fieldgroup">
+                <input type="text" name="agreen" id="agreen"/>
+                <label for="agreen">請輸入</label>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="fieldgroup">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>戶籍電話</strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-3 col-md-2">
+                    <div class="fieldgroup">
+                        <input type="text" name="areaCode" id="areaCode"/>
+                        <label for="areaCode">區號</label>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1">
+                    <div class="fieldgroup">
+                        <i class="fa-solid fa-minus"></i>
+                    </div>
+                </div>
+                <div class="col-8 col-md-6">
+                    <div class="fieldgroup">
+                        <input
+                      type="text"
+                      name="telephoneNumber"
+                      id="telephoneNumber"
+/>
+                        <label for="telephoneNumber">請輸入</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-5">
+                    <div class="fieldgroup">
+                        <span
+                      class="my-0 d-flex align-items-center"
+                      style="font-size: 1.25em"
+                      >
+                            <strong>居住地電話 </strong>
+                        </span>
+                        <input
+                      id="sameNumber"
+                      name="yo"
+                      style="
+                        font-size: 15px;
+                        text-decoration: none;
+                        width: auto;
+                      "
+                      type="checkbox"
+/>
+                        <span for="yo"> 同戶籍電話</span>
+                    </div>
+                </div>
+                <div class="col-3 col-md-2 sameNumber">
+                    <div class="fieldgroup">
+                        <input type="text" name="areaCode" id="areaCode"/>
+                        <label for="areaCode">區號</label>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1 align-items-center sameNumber">
+                    <div class="fieldgroup">
+                        <i class="fa-solid fa-minus"></i>
+                    </div>
+                </div>
+                <div class="col-8 col-md-4 sameNumber">
+                    <div class="fieldgroup">
+                        <input
+                      type="text"
+                      name="telephoneNumber"
+                      id="telephoneNumber"
+/>
+                        <label for="telephoneNumber">請輸入</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 職業資料 -->
+        <div id="" class="expand-3">
+            <p
+                class="form-instructions largeCharacters"
+                style="font-size: 1.5em"
+              >
+                職業資料
+              </p>
+            <i class="fa-solid fa-circle-chevron-up expand-icon-3"></i>
+        </div>
+        <div id="" class="content-3 hidden">
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>行業類別</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="industrySelector"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(請選擇)</option>
+                            {% for industryCategories in
+                            optionsData.industryCategories %}
+                                <option value="{{ industryCategories.name }}">
+                                    {{ industryCategories.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>職業類別</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="careerSelector"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(請選擇)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>職位類別</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="jobSelector"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(請選擇)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row w-100">
+                <div class="col-md-4">
+                    <div class="fieldgroup">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>公司名稱</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-8 d-flex align-items-center">
+                    <div class="fieldgroup">
+                        <input type="text" name="agreen" id="agreen"/>
+                        <label for="agreen">請輸入</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row w-100">
+                <div class="col-md-4 d-flex align-items-center">
+                    <div class="fieldgroup">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>職稱</strong>
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="fieldgroup">
+                        <input type="text" name="agreen" id="agreen"/>
+                        <label for="agreen">請輸入</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>年資</strong>
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <select
+                      id="seniority-start-select"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(開始年分)</option>
+                            {% set currentYear = now.year %}
+                            {% for year in
+                      range(currentYear - 100, currentYear + 1) %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select
+                      id="seniority-end-select"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(結束年分)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row w-100">
+                <div class="col-md-4 d-flex align-items-center">
+                    <div class="fieldgroup">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>年收入(新台幣)</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="fieldgroup">
+                        <input type="text" name="agreen" id="agreen"/>
+                        <label for="agreen">請輸入</label>
+                    </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center">
+                    <div class="fieldgroup">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>萬</strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <span class="my-0" style="font-size: 1.25em"
+                  >
+                    <strong>公司地址</strong>
+                    <alert style="color: red">*</alert>
+                </span>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-6">
+                        <select
+                      class="form-select mx-1 addressCountys"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(縣市別)</option>
+                            {% for county in optionsData.countyData %}
+                                <option value="{{ county.name }}">
+                                    {{ county.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select
+                      class="form-select mx-1 addressLocalities"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(市/區/鄉/鎮)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <input type="text" name="agreen" id="agreen"/>
+                <label for="agreen">請輸入</label>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="fieldgroup">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>公司電話</strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-3 col-md-2">
+                    <div class="fieldgroup">
+                        <input type="text" name="areaCode" id="areaCode"/>
+                        <label for="areaCode">區號</label>
+                    </div>
+                </div>
+                <div class="col-1 col-md-1">
+                    <div class="fieldgroup">
+                        <i class="fa-solid fa-minus"></i>
+                    </div>
+                </div>
+                <div class="col-8 col-md-3">
+                    <div class="fieldgroup">
+                        <input
+                      type="text"
+                      name="telephoneNumber"
+                      id="telephoneNumber"
+/>
+                        <label for="telephoneNumber">請輸入</label>
+                    </div>
+                </div>
+                <div class="col-2 col-md-1 p-md-0">
+                    <div class="fieldgroup">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>分機</strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-10 col-md-2">
+                    <div class="fieldgroup">
+                        <input
+                      type="text"
+                      name="telephoneNumber"
+                      id="telephoneNumber"
+/>
+                        <label for="telephoneNumber">請輸入</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="" class="expand-3">
+            <p
+                class="form-instructions largeCharacters"
+                style="font-size: 1.5em"
+              >
+                卡片與帳單資料
+              </p>
+            <i class="fa-solid fa-circle-chevron-up expand-icon-3"></i>
+        </div>
+        <div id="" class="content-3 hidden">
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>帳單型態</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="industrySelector"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            {% for billType in optionsData.billTypes %}
+                                <option value="{{ industryCategories.id }}">
+                                    {{ billType.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>卡片與帳單地址</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="careerSelector"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(請選擇)</option>
+                            {% for i in range(1, 4) %}
+                                <option value="{{ i }}">地址{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldgroup">
+                <div class="row w-100">
+                    <div class="col-md-4">
+                        <span class="my-0" style="font-size: 1.25em"
+                      >
+                            <strong>卡片取件方式</strong
+                      >
+                            <alert style="color: red">*</alert>
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <select
+                      id="jobSelector"
+                      class="form-select mx-1"
+                      aria-label="Default select example"
+                    >
+                            <option selected>(請選擇)</option>
+                            {% for pickupMethod in optionsData.pickupMethods %}
+                                <option value="{{ pickupMethod.id }}">
+                                    {{ pickupMethod.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="nextBtnFormStep3" type="submit" class="btn">
+                下一步
+              </button>
+        </div>
+    </form>
+</div>

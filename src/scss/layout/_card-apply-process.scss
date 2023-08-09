@@ -36,6 +36,10 @@
 
   .form-instructions {
     text-align: center;
+    &.largeCharacters {
+      font-weight: 900;
+      color: #19a6ff;
+    }
   }
 
   form {
@@ -44,17 +48,33 @@
     will-change: transform;
   }
 
+  .expand-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-block: 1rem;
+    p {
+      margin: 0;
+      padding-inline-end: 0.5em;
+    }
+    .expand-icon-3 {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .rotate180 {
+      transform: rotate(180deg);
+    }
+  }
+
   .fieldgroup {
     margin-top: 1.5rem;
     position: relative;
     display: flex;
-    justify-content: center;
   }
 
   span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-block: 1rem;
   }
 
   label {
@@ -80,8 +100,7 @@
     border: none;
     border-bottom: 2px solid #444;
     transition: 0.2s;
-    width: calc(100% - 0.6rem);
-    max-width: 350px;
+    width: 100%;
     border-radius: 0;
   }
   input:focus {

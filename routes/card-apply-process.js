@@ -16,7 +16,15 @@ router.get("/card-apply/process", userMiddleware, async (req, res) => {
         return res.status(500).send("Internal Server Error");
       }
       const Code = JSON.parse(data);
-      res.render("card-apply-process", { Code });
+      fs.readFile("./data/json/options.json", "utf8", (err2, data2) => {
+        if (err2) {
+          console.error("讀取檔案 options 時發生錯誤：", err2);
+          return res.status(500).send("Internal Server Error");
+        }
+        const optionsData = JSON.parse(data2);
+        // 傳遞到渲染函數中
+        res.render("card-apply-process", { Code, optionsData });
+      });
     });
   } else {
     // 若为false，则重定向到 /card-apply

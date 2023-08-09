@@ -1,99 +1,101 @@
-{% extends 'util/base.njk' %} {% block prefab %}
+{% extends 'util/base.njk' %}
+{% block prefab %}
 
-<div id="process-1-1">
-  <div class="fieldgroup">
-    <input type="text" name="IDNumber" id="IDNumber" />
-    <label for="IDNumber">身分證字號</label>
-  </div>
-  <div class="fieldgroup">
-    <input type="text" name="creditCardNumber" id="creditCardNumber" />
-    <label for="creditCardNumber">他行信用卡卡號 </label>
-  </div>
-  <span
+  <div id="process-1-1">
+    <div class="fieldgroup">
+      <input type="text" name="IDNumber" id="IDNumber"/>
+      <label for="IDNumber">身分證字號</label>
+    </div>
+    <div class="fieldgroup">
+      <input type="text" name="creditCardNumber" id="creditCardNumber"/>
+      <label for="creditCardNumber">他行信用卡卡號 </label>
+    </div>
+    <span
     class="person"
     style="font-size: 15px; text-decoration: none; color: aqua"
     >開放持卡身分驗證金融機構</span
   >
-  <div class="fieldgroup">
-    <span>信用卡有效月年：</span>
-    <div class="d-flex my-2">
-      <select
+    <div class="fieldgroup">
+      <span>信用卡有效月年：</span>
+      <div class="d-flex my-2">
+        <select
         id="creditCardMonth"
         class="form-select mx-1"
         aria-label="Default select example"
       >
-        <option selected>請選擇月</option>
-        {% for i in range(1, 13) %}
-        <option value="{{ i }}">{{ i }}</option>
-        {% endfor %}
-      </select>
-      <select
+          <option selected>請選擇月</option>
+          {% for i in range(1, 13) %}
+            <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+        <select
         id="creditCardYear"
         class="form-select mx-1"
         aria-label="Default select example"
       >
-        <option selected>請選擇年</option>
-        {% for i in range(23, 31) %}
-        <option value="{{ i }}">{{ i }}</option>
-        {% endfor %}
-      </select>
+          <option selected>請選擇年</option>
+          {% for i in range(23, 31) %}
+            <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
     </div>
-  </div>
 
-  <p class="form-instructions my-5">
+    <p class="my-5">
     ※<span style="color: red; font-weight: bold">您輸入之卡號</span>
     僅作為本次信用卡申請身分驗證之用，
     <span style="color: red; font-weight: bold">並非以卡辦卡</span>
     ，仍需檢附財力證明供本行進行審核。
   </p>
-</div>
+  </div>
 
-<div id="process-1-2">
-  <div class="fieldgroup">
-    <span>他行銀行別</span>
-    <div class="d-flex my-2">
-      <select
+  <div id="process-1-2">
+    <div class="fieldgroup">
+      <span>他行銀行別</span>
+      <div class="d-flex my-2">
+        <select
         id="bankSelect"
         class="form-select mx-1"
         aria-label="Default select example"
       >
-        <option selected>請選擇</option>
-        {% for code in Code %}
-        <option value="{{ code.code }}">{{ code.code }} {{ code.name }}</option>
-        {% endfor %}
-      </select>
+          <option selected>請選擇</option>
+          {% for code in Code %}
+            <option value="{{ code.code }}">{{ code.code }}
+              {{ code.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="fieldgroup">
+      <input type="text" name="creditCardNumber" id="creditCardNumber"/>
+      <label for="creditCardNumber">他行信用卡卡號</label>
+    </div>
+    <div class="fieldgroup">
+      <input type="text" name="taiwanMobileNumber" id="taiwanMobileNumber"/>
+      <label for="taiwanMobileNumber">留存於他行之行動電話</label>
     </div>
   </div>
-  <div class="fieldgroup">
-    <input type="text" name="creditCardNumber" id="creditCardNumber" />
-    <label for="creditCardNumber">他行信用卡卡號</label>
-  </div>
-  <div class="fieldgroup">
-    <input type="text" name="taiwanMobileNumber" id="taiwanMobileNumber" />
-    <label for="taiwanMobileNumber">留存於他行之行動電話</label>
-  </div>
-</div>
 
-<div id="process-1-3">
-  <div class="fieldgroup">
-    <input type="text" name="yourName" id="yourName" />
-    <label for="yourName">姓名</label>
+  <div id="process-1-3">
+    <div class="fieldgroup">
+      <input type="text" name="yourName" id="yourName"/>
+      <label for="yourName">姓名</label>
+    </div>
+    <div class="fieldgroup">
+      <input type="text" name="IDNumber" id="IDNumber"/>
+      <label for="IDNumber">身分證字號</label>
+    </div>
+    <div class="fieldgroup">
+      <input type="text" name="taiwanMobileNumber" id="taiwanMobileNumber"/>
+      <label for="taiwanMobileNumber">行動電話</label>
+    </div>
   </div>
-  <div class="fieldgroup">
-    <input type="text" name="IDNumber" id="IDNumber" />
-    <label for="IDNumber">身分證字號</label>
-  </div>
-  <div class="fieldgroup">
-    <input type="text" name="taiwanMobileNumber" id="taiwanMobileNumber" />
-    <label for="taiwanMobileNumber">行動電話</label>
-  </div>
-</div>
 
-<div id="new-upload-wrap" class="row my-3">
-  {% for i in range(0,2) %}
-  <div class="col-md-6">
-    <div class="image-upload-wrap h-100">
-      <input
+  <div id="new-upload-wrap" class="row my-3">
+    {% for i in range(0, 2) %}
+      <div class="col-md-6">
+        <div class="image-upload-wrap h-100">
+          <input
         class="file-upload-input"
         type="file"
         name="file"
@@ -109,40 +111,43 @@
           opacity: 0;
           cursor: pointer;
         "
-      />
-      <div class="drag-text" style="display: block">
-        <h3>拖放文件或選擇添加圖像</h3>
-      </div>
-      <div class="file-upload-content" style="display: none">
-        <img class="file-upload-image" src="#" alt="your image" />
-        <div class="image-title-wrap">
-          <button type="button" class="remove-image" style="z-index: 999">
+/>
+          <div class="drag-text" style="display: block">
+            <h3>拖放文件或選擇添加圖像</h3>
+          </div>
+          <div class="file-upload-content" style="display: none">
+            <img class="file-upload-image" src="#" alt="your image"/>
+            <div class="image-title-wrap">
+              <button type="button" class="remove-image" style="z-index: 999">
             刪除 <span class="image-title">上傳的圖片</span>
-          </button>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+    {% endfor %}
+  </div>
+{% endblock prefab %}
+{% block title %}{% endblock %}
+{% block css %}{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+
+  <div>
+    <div id="card">
+      <div id="stars">
+        <div id="star"></div>
+        <div id="star2"></div>
+        <div id="star3"></div>
+      </div>
     </div>
   </div>
-  {% endfor %}
-</div>
-{% endblock prefab %} {% block title %}{% endblock %} {% block css %}{% endblock
-%} {% block header %}{% endblock %} {% block content %}
 
-<div>
-  <div id="card">
-    <div id="stars">
-      <div id="star"></div>
-      <div id="star2"></div>
-      <div id="star3"></div>
-    </div>
-  </div>
-</div>
+  <div id="card-process" class="wrapper">
+    <h1 class="mt-5">信用卡線上申辦流程</h1>
 
-<div id="card-process" class="wrapper">
-  <h1 class="mt-5">信用卡線上申辦流程</h1>
-
-  <div class="form-progress">
-    <progress
+    <div class="form-progress">
+      <progress
       class="form-progress-bar"
       min="0"
       max="100"
@@ -151,199 +156,37 @@
       aria-labelledby="form-progress-completion"
     ></progress>
 
-    <div class="form-progress-indicator one active"></div>
-    <div class="form-progress-indicator two"></div>
-    <div class="form-progress-indicator three"></div>
-    <div class="form-progress-indicator four"></div>
+      <div class="form-progress-indicator one active"></div>
+      <div class="form-progress-indicator two"></div>
+      <div class="form-progress-indicator three"></div>
+      <div class="form-progress-indicator four"></div>
 
-    <p
+      <p
       id="form-progress-completion"
       class="js-form-progress-completion sr-only"
       aria-live="polite"
     >
       0% complete
     </p>
-  </div>
-  <div class="main-agileinfo container">
-    <div class="agileits-top">
-      <div class="animation-container">
-        <!-- Step one -->
-        <div class="form-step js-form-step" data-step="1">
-          <p class="form-instructions" style="font-size: 2em">請選擇申請方式</p>
-          <p class="form-instructions">
-            以他行信用卡，他行帳戶進行分驗證，快速免郵寄!
-          </p>
-          <div
-            id="choose"
-            class="buttons"
-            style="justify-content: space-evenly"
-          >
-            <button id="choose-1-btn" class="btn">他行信用卡</button>
-            <button id="choose-2-btn" class="btn">他行帳戶</button>
-            <button id="choose-3-btn" class="btn">專人聯繫</button>
-          </div>
-          <form action="" name="form-step-1"></form>
-          <div class="buttons row" style="justify-content: space-evenly">
-            <div class="col-md-6 my-1">
-              <button id="close-from-1-Btn" class="btn w-100">上一步</button>
-            </div>
-            <div class="col-md-6 my-1">
-              <button id="nextBtnFormStep1" class="btn w-100" type="submit">
-                下一步
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Step two -->
-        <div class="form-step js-form-step waiting hidden" data-step="2">
-          ※ 上傳檔案格式限JPG、JPEG並勿加密，檔名請勿使用特殊符號。<br />
-          ※ 總上傳檔案大小限30MB<br />
-          <hr />
-          <form id="form-step-2" action="" name="form-step-2">
-            <p class="form-instructions" style="font-size: 2em">身分正反面</p>
-            <p class="form-instructions">請上傳身分上傳</p>
-            <div class="row my-3">
-              {% set ID = ["身分證正面", "身分證反面"] %} {% for i in range(0,2)
-              %}
-              <div class="col-md-6">
-                <span>{{ ID[i] }}</span>
-                <div class="image-upload-wrap">
-                  <input
-                    id="readURL{{ i }}"
-                    class="file-upload-input"
-                    type="file"
-                    name="file{{ i }}"
-                    accept="image/*"
-                    style="
-                      display: block;
-                      position: absolute;
-                      margin: 0;
-                      padding: 0;
-                      width: 100%;
-                      height: 100%;
-                      outline: none;
-                      opacity: 0;
-                      cursor: pointer;
-                    "
-                  />
-                  <div class="drag-text" style="display: block">
-                    <h3>拖放文件或選擇添加圖像</h3>
-                  </div>
-                  <div class="file-upload-content" style="display: none">
-                    <img class="file-upload-image" src="#" alt="your image" />
-                    <div class="image-title-wrap">
-                      <button
-                        type="button"
-                        class="remove-image"
-                        style="z-index: 999"
-                      >
-                        刪除 <span class="image-title">上傳的圖片</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-
-            <p class="form-instructions" style="font-size: 2em">財力證明</p>
-            <p class="form-instructions">請上傳財力證明</p>
-
-            <div class="row my-3">
-              {% for i in range(0,2) %}
-              <div class="col-md-6">
-                <div class="image-upload-wrap h-100">
-                  <input
-                    id="readURL{{ i }}"
-                    class="file-upload-input"
-                    type="file"
-                    name="file{{ i }}"
-                    accept="image/*"
-                    style="
-                      display: block;
-                      position: absolute;
-                      margin: 0;
-                      padding: 0;
-                      width: 100%;
-                      height: 100%;
-                      outline: none;
-                      opacity: 0;
-                      cursor: pointer;
-                    "
-                  />
-                  <div class="drag-text" style="display: block">
-                    <h3>拖放文件或選擇添加圖像</h3>
-                  </div>
-                  <div class="file-upload-content" style="display: none">
-                    <img class="file-upload-image" src="#" alt="your image" />
-                    <div class="image-title-wrap">
-                      <button
-                        type="button"
-                        class="remove-image"
-                        style="z-index: 999"
-                      >
-                        刪除 <span class="image-title">上傳的圖片</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-
-            <div id="add-upload-wrap">
-              <button class="btn">+上傳更多財力證明</button>
-            </div>
-
-            <div class="buttons">
-              <button id="nextBtnFormStep2" type="submit" class="btn mt-5">
-                下一步
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Step three -->
-        <div class="form-step js-form-step waiting hidden" data-step="3">
-          <p class="form-instructions" style="font-size: 2em">填寫資料</p>
-          <alert style="color: red">*</alert> 為必填欄位<br />
-          ※ 已協助進行身分證辨識，並將辨識完成資料帶入相關欄位，請務必確認。<br />
-          <hr>
-          <p class="form-instructions" style="font-size: 1.5em"><alert style="color: red">*</alert> 獲取贈品</p>
-          <p class="form-instructions">設計您的RawStone服裝</p>
-          <form action="" name="form-step-3">
-            {% include 'util/fashionPicker.njk' %}
-            <div class="buttons">
-              <button id="nextBtnFormStep3" type="submit" class="btn">
-                下一步
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Step four -->
-        <div class="form-step js-form-step waiting hidden" data-step="4">
-          <p class="form-instructions">第四步</p>
-
-          <form action="" name="form-step-4">
-            <div class="fieldgroup">
-              <input type="text" name="agreen" id="agreen" />
-              <label for="agreen">I agree</label>
-            </div>
-
-            <div class="buttons">
-              <button id="nextBtnFormStep4" type="submit" class="btn">
-                下一步
-              </button>
-            </div>
-          </form>
+    </div>
+    <div class="main-agileinfo container">
+      <div class="agileits-top">
+        <div class="animation-container">
+          <!-- Step one -->
+          {% include 'card-apply/form-step-1.njk' %}
+          <!-- Step two -->
+          {% include 'card-apply/form-step-2.njk' %}
+          <!-- Step three -->
+          {% include 'card-apply/form-step-3.njk' %}
+          <!-- Step four -->
+          {% include 'card-apply/form-step-4.njk' %}
         </div>
       </div>
     </div>
   </div>
-</div>
-{% endblock %} {% block footer %}{% endblock %} {% block script %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-<script type="module" src="/js/cardApplyProcess.js"></script>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script type="module" src="/js/cardApplyProcess.js"></script>
 {% endblock %}

@@ -174,27 +174,30 @@ function changeCurrentForm() {
 window.addEventListener("resize", changeCurrentForm);
 
 // 創建一個 MutationObserver 實例
-var formStep2 = document.getElementById("form-step-2");
-var MutationObserver =
+const formSteps = document.querySelectorAll('form[name^="form-step-"]');
+let MutationObserver =
   window.MutationObserver ||
   window.webkitMutationObserver ||
   window.MozMutationObserver;
 
-var recordHeight = 0;
-var mutationObserver = new MutationObserver(function (mutations) {
-  let height = window.getComputedStyle(formStep2).getPropertyValue("height");
-  if (height === recordHeight) {
-    return;
-  }
-  recordHeight = height;
-  changeCurrentForm();
-});
+let recordHeights = {};
 
-mutationObserver.observe(formStep2, {
-  childList: true,
-  attributes: true,
-  characterData: true,
-  subtree: true,
+formSteps.forEach((formStep) => {
+  let mutationObserver = new MutationObserver(function (mutations) {
+    let height = window.getComputedStyle(formStep).getPropertyValue("height");
+    if (height === recordHeights[formStep]) {
+      return;
+    }
+    recordHeights[formStep] = height;
+    changeCurrentForm();
+  });
+
+  mutationObserver.observe(formStep, {
+    childList: true,
+    attributes: true,
+    characterData: true,
+    subtree: true,
+  });
 });
 
 // -------process 1---------
@@ -635,4 +638,250 @@ document.querySelector(".gender .man").addEventListener("click", () => {
 document.querySelector(".gender .woman").addEventListener("click", () => {
   toggleMF("woman", "man");
 });
+
+const currentYear = new Date().getFullYear(); // 西元轉換為民國年
+const selectYear = document.getElementById("IDCardIssueYear");
+const selectMonth = document.getElementById("IDCardIssueMonth");
+const selectDay = document.getElementById("IDCardIssueDay");
+
+for (let year = 94; year <= currentYear - 1911; year++) {
+  const option = document.createElement("option");
+  option.value = year;
+  option.textContent = year + "年";
+  selectYear.appendChild(option);
+}
+
+selectYear.addEventListener("change", () => {
+  const selectedYear = parseInt(selectYear.value);
+
+  // 清空月份選項
+  selectMonth.innerHTML = `<option value="${0}" selected>請選擇月</option>`;
+  selectDay.innerHTML = `<option value="${0}" selected>請選擇日</option>`;
+
+  if (selectedYear === 94) {
+    const option = document.createElement("option");
+    option.value = 12;
+    option.textContent = "12月";
+    selectMonth.appendChild(option);
+  } else if (selectedYear === 0) {
+    // 不給任何選項
+  } else {
+    for (let month = 1; month <= 12; month++) {
+      const option = document.createElement("option");
+      option.value = month;
+      option.textContent = month + "月";
+      selectMonth.appendChild(option);
+    }
+  }
+
+  selectMonth.classList.remove("hidden");
+});
+
+selectMonth.addEventListener("change", () => {
+  const selectedYear = parseInt(selectYear.value);
+  const selectedMonth = parseInt(selectMonth.value);
+
+  // 清空日份選項
+  selectDay.innerHTML = `<option value="${0}" selected>請選擇日</option>`;
+
+  if (selectedYear === 94 && selectedMonth === 12) {
+    for (let day = 21; day <= 31; day++) {
+      const option = document.createElement("option");
+      option.value = day;
+      option.textContent = day + "日";
+      selectDay.appendChild(option);
+    }
+  } else if (selectedMonth === 0) {
+    // 不給任何選項
+  } else {
+    const daysInMonth = getDaysInMonth(selectedYear, selectedMonth);
+    for (let day = 1; day <= daysInMonth; day++) {
+      const option = document.createElement("option");
+      option.value = day;
+      option.textContent = day + "日";
+      selectDay.appendChild(option);
+    }
+  }
+
+  selectDay.classList.remove("hidden");
+});
+
+function isLeapYear(year) {
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+function getDaysInMonth(year, month) {
+  if (month === 2) {
+    return isLeapYear(year) ? 29 : 28;
+  }
+  return [1, 3, 5, 7, 8, 10, 12].includes(month) ? 31 : 30;
+}
+
+const addressCountys = document.querySelectorAll(".addressCountys");
+const addressLocalities = document.querySelectorAll(".addressLocalities");
+
+addressCountys.forEach((addressCounty, index) => {
+  addressCounty.addEventListener("change", async () => {
+    const selectedCounty = addressCounty.value;
+
+    try {
+      const response = await fetch(
+        "https://raw.githubusercontent.com/uliang1024/ApplyEase-demo/main/data/json/options.json"
+      );
+      const optionsData = await response.json();
+
+      const countyData = optionsData.countyData.find(
+        (county) => county.name === selectedCounty
+      );
+
+      if (countyData) {
+        addressLocalities[index].innerHTML =
+          "<option selected>(市區鄉鎮)</option>";
+        countyData.districts.forEach((district) => {
+          const option = document.createElement("option");
+          option.value = district.name;
+          option.textContent = district.name;
+          addressLocalities[index].appendChild(option);
+        });
+      } else {
+        addressLocalities[index].innerHTML =
+          "<option selected>(市區鄉鎮)</option>";
+      }
+    } catch (error) {
+      console.error("Error fetching JSON data:", error);
+    }
+  });
+});
+
+const expands3 = document.querySelectorAll(".expand-3");
+const contents3 = document.querySelectorAll(".content-3");
+const expandIcons3 = document.querySelectorAll(".expand-icon-3");
+expands3.forEach((expand3, index) => {
+  expand3.addEventListener("click", () => {
+    contents3[index].classList.toggle("hidden");
+    expandIcons3[index].classList.toggle("rotate180");
+  });
+});
+
+const sameAddress = document.querySelector("#sameAddress");
+const Select = document.querySelector("#ResidentialAddressSelect");
+const Input = document.querySelector("#ResidentialAddressInput");
+sameAddress.addEventListener("change", (event) => {
+  if (event.target.checked) {
+    Select.classList.add("hidden");
+    Input.classList.add("hidden");
+  } else {
+    Select.classList.remove("hidden");
+    Input.classList.remove("hidden");
+  }
+});
+const sameNumber = document.querySelector("#sameNumber");
+const sameNumberHides = document.querySelectorAll(".sameNumber");
+sameNumber.addEventListener("change", (event) => {
+  if (event.target.checked) {
+    sameNumberHides.forEach((sameNumberHide) => {
+      sameNumberHide.classList.add("hidden");
+    });
+  } else {
+    sameNumberHides.forEach((sameNumberHide) => {
+      sameNumberHide.classList.remove("hidden");
+    });
+  }
+});
+
+const industrySelector = document.querySelector("#industrySelector");
+const careerSelector = document.querySelector("#careerSelector");
+const jobSelector = document.querySelector("#jobSelector");
+industrySelector.addEventListener("change", async () => {
+  const selectedIndustry = industrySelector.value;
+  jobSelector.innerHTML = "<option selected>(請選擇)</option>";
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/uliang1024/ApplyEase-demo/main/data/json/options.json"
+    );
+    const optionsData = await response.json();
+
+    const industryCategories = optionsData.industryCategories.find(
+      (industryCategorie) => industryCategorie.name === selectedIndustry
+    );
+
+    if (industryCategories) {
+      careerSelector.innerHTML = "<option selected>(請選擇)</option>";
+      industryCategories.occupations.forEach((occupation) => {
+        const option = document.createElement("option");
+        option.value = occupation.name;
+        option.textContent = occupation.name;
+        careerSelector.appendChild(option);
+      });
+    } else {
+      careerSelector.innerHTML = "<option selected>(請選擇)</option>";
+    }
+  } catch (error) {
+    console.error("Error fetching JSON data:", error);
+  }
+});
+
+careerSelector.addEventListener("change", async () => {
+  const selectedIndustry = industrySelector.value;
+  const selectedCareer = careerSelector.value;
+
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/uliang1024/ApplyEase-demo/main/data/json/options.json"
+    );
+    const optionsData = await response.json();
+
+    const industry = optionsData.industryCategories.find(
+      (industry) => industry.name === selectedIndustry
+    );
+    if (industry) {
+      const occupation = industry.occupations.find(
+        (occupation) => occupation.name === selectedCareer
+      );
+      if (occupation) {
+        jobSelector.innerHTML = "<option selected>(請選擇)</option>";
+        occupation.positions.forEach((occupation) => {
+          const option = document.createElement("option");
+          option.value = occupation.name;
+          option.textContent = occupation.name;
+          jobSelector.appendChild(option);
+        });
+      } else {
+        jobSelector.innerHTML = "<option selected>(請選擇)</option>";
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching JSON data:", error);
+  }
+});
+
+const seniorityStartSelect = document.querySelector("#seniority-start-select"); // 取得 select 元素
+const seniorityEndSelect = document.querySelector("#seniority-end-select");
+
+for (let year = currentYear - 100; year <= currentYear; year++) {
+  const option = document.createElement("option");
+  option.value = year;
+  option.textContent = year + "年";
+  seniorityStartSelect.appendChild(option);
+}
+
+seniorityStartSelect.addEventListener("change", () => {
+  const startYear = parseInt(seniorityStartSelect.value);
+  seniorityEndSelect.innerHTML = "";
+
+  if (startYear > 0) {
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "(結束年分)";
+    seniorityEndSelect.appendChild(defaultOption);
+
+    for (let year = startYear; year <= currentYear; year++) {
+      const option = document.createElement("option");
+      option.value = year;
+      option.textContent = year + "年";
+      seniorityEndSelect.appendChild(option);
+    }
+  }
+});
+
 // -------process 4---------

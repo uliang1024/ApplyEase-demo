@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/card-apply/process", userMiddleware, async (req, res) => {
   // 检查会话中的formSubmitted变量是否为true
-  req.session.formSubmitted = true; //部署後請刪掉！！！！！！！！！！！！！！！！
+  // req.session.formSubmitted = true; //部署後請刪掉！！！！！！！！！！！！！！！！
   if (req.session.formSubmitted) {
     fs.readFile("./data/json/taiwanBankCode.json", "utf8", (err, data) => {
       if (err) {

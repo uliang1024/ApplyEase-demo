@@ -12,6 +12,7 @@
           "scale",
           "@property",
           "@property",
+          "@property",
           "@property"
         ]
       }

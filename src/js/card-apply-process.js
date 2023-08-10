@@ -49,8 +49,8 @@ function setupClickHandlers() {
     event.preventDefault();
     var $currentForm = $(this).parents(".js-form-step");
     // 在前往下一步表單之前執行表單驗證
-    // const isValid = await validateFormInputs($currentForm);
-    const isValid = true;
+    const isValid = await validateFormInputs($currentForm);
+    // const isValid = true;
     if (isValid) {
       if ($currentForm.find("#nextBtnFormStep3").length > 0) {
         setTimeout(function () {

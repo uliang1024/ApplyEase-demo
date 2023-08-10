@@ -1,18 +1,43 @@
 <div class="form-step js-form-step waiting hidden" data-step="4">
-    <form action="" name="form-step-4">
-        <p>本行已收到您的申請，將於二至十個工作天以簡訊通知審核結果</p>
-        <p>
-              歡迎自行下載本次申請書留存，請點下載申請書。(請使用
-              <a href="https://get.adobe.com/tw/reader/" target="_blank"
-                >Adobe Reader7.0</a
-              >
-              以一版本閱讀)
-            </p>
-
-        <div class="buttons">
-            <button id="nextBtnFormStep4" type="submit" class="btn">
-                確認
-              </button>
+  {% include 'util/loading.njk' %}
+  <div id="service-item-cards" class="hidden">
+    <main class="page-content">
+      <div class="card">
+        <div class="content">
+          <h2 class="title">線上開戶</h2>
+          <p class="copy">
+            全線上流程，輕鬆開設個人帳戶。無需親自前往分行，即可完成開戶手續，省時又方便
+          </p>
+          <button class="btn">
+            <a href="/card-apply">立即申辦</a>
+          </button>
         </div>
-    </form>
+      </div>
+      <div class="card">
+        <div class="content">
+          <h2 class="title">證券戶開戶</h2>
+          <p class="copy">
+            透過我們便捷的證券戶開戶服務，您可以輕鬆開立自己的證券帳戶，享受投資的多元機會。無需前往實體分行，即可開始探索股市與投資市場，讓您的理財之路更加便利與自由。
+          </p>
+          <button class="btn">
+            <a href="/card-apply">立即申辦</a>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <form action="" name="form-step-4" class="hidden">
+    <p>本行已收到您的申請，將於二至十個工作天以簡訊通知審核結果</p>
+    <p>
+      歡迎自行下載本次申請書留存，請點下載申請書。(請使用
+      <a href="https://get.adobe.com/tw/reader/" target="_blank"
+        >Adobe Reader7.0</a
+      >
+      以一版本閱讀)
+    </p>
+
+    <div class="buttons">
+      <button id="nextBtnFormStep4" type="submit" class="btn">確認，並返回首頁</button>
+    </div>
+  </form>
 </div>

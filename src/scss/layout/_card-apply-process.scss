@@ -106,9 +106,7 @@
   input:focus {
     outline: none;
   }
-  input:valid {
-    border-color: #444;
-  }
+
   input:focus + label,
   input.hasInput + label {
     top: -0.8rem;
@@ -692,5 +690,30 @@
 
   .hidden {
     display: none;
+  }
+
+  .invalid {
+    border: 1px solid red;
+  }
+}
+
+.form-step {
+  #service-item-cards {
+    @media (min-width: 800px) {
+      .page-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .btn {
+      width: 100%;
+    }
+    .card:nth-child(1):before {
+      background-image: url(/imgs/indexCard2.jpeg);
+      filter: brightness(50%);
+    }
+    .card:nth-child(2):before {
+      background-image: url(/imgs/indexCard3.jpg);
+      filter: brightness(50%);
+    }
   }
 }

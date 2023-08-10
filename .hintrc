@@ -9,7 +9,10 @@
         "ignore": [
           "width: fit-content",
           "rotate",
-          "scale"
+          "scale",
+          "@property",
+          "@property",
+          "@property"
         ]
       }
     ]

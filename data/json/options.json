@@ -1596,23 +1596,23 @@
     }
   ],
   "idCardIssueTypeData": [
-    { "value": "0", "text": "初發" },
-    { "value": "1", "text": "補發" },
-    { "value": "2", "text": "換發" }
+    { "value": "1", "text": "初發" },
+    { "value": "2", "text": "補發" },
+    { "value": "3", "text": "換發" }
   ],
   "maritalStatusData": [
-    { "value": "0", "text": "未婚" },
-    { "value": "1", "text": "已婚" },
-    { "value": "2", "text": "離婚" },
-    { "value": "3", "text": "喪偶" }
+    { "value": "1", "text": "未婚" },
+    { "value": "2", "text": "已婚" },
+    { "value": "3", "text": "離婚" },
+    { "value": "4", "text": "喪偶" }
   ],
   "highestEducationData": [
-    { "value": "0", "text": "小學" },
-    { "value": "1", "text": "初中" },
-    { "value": "2", "text": "高中" },
-    { "value": "3", "text": "大專" },
-    { "value": "4", "text": "大學本科" },
-    { "value": "5", "text": "研究生" }
+    { "value": "1", "text": "小學" },
+    { "value": "2", "text": "初中" },
+    { "value": "3", "text": "高中" },
+    { "value": "4", "text": "大專" },
+    { "value": "5", "text": "大學本科" },
+    { "value": "6", "text": "研究生" }
   ],
   "industryCategories": [
     {

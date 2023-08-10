@@ -45,14 +45,40 @@ function formReset() {
  */
 function setupClickHandlers() {
   // 在「繼續」按鈕點擊時顯示下一步表單
-  $('button[type="submit"]').on("click", function (event) {
+  $('button[type="submit"]').on("click", async function (event) {
     event.preventDefault();
     var $currentForm = $(this).parents(".js-form-step");
     // 在前往下一步表單之前執行表單驗證
-    // const isValid = validateFormInputs($currentForm);
-    const isValid = true; //測試
+    // const isValid = await validateFormInputs($currentForm);
+    const isValid = true;
     if (isValid) {
-      showNextForm($currentForm);
+      if ($currentForm.find("#nextBtnFormStep3").length > 0) {
+        setTimeout(function () {
+          $(".loading-container").addClass("hidden");
+          $("form[name='form-step-4']").removeClass("hidden");
+          $("#service-item-cards").removeClass("hidden");
+        }, 3000);
+        showNextForm($currentForm);
+      } else if ($currentForm.find("#nextBtnFormStep4").length > 0) {
+        window.location.href = "/";
+      } else { 
+        showNextForm($currentForm);
+      }
+    } else {
+      const firstInvalidElement = document.querySelector(".invalid");
+      if (firstInvalidElement) {
+        firstInvalidElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+
+        // 添加震動動畫
+        firstInvalidElement.style.animation = "shake 0.5s ease";
+        firstInvalidElement.addEventListener("animationend", () => {
+          // 動畫結束後移除震動效果
+          firstInvalidElement.style.animation = "";
+        });
+      }
     }
   });
 
@@ -121,17 +147,17 @@ function setupFloatLabels() {
       switch (this.tagName) {
         case "SELECT":
           if (this.value > 0) {
-            this.className = "hasInput";
+            this.classList.add("hasInput");
           } else {
-            this.className = "";
+            this.classList.remove("hasInput");
           }
           break;
 
         case "INPUT":
           if (this.value !== "") {
-            this.className = "hasInput";
+            this.classList.add("hasInput");
           } else {
-            this.className = "";
+            this.classList.remove("hasInput");
           }
           break;
 
@@ -202,121 +228,33 @@ formSteps.forEach((formStep) => {
 
 // -------process 1---------
 
-const choose1Btn = document.querySelector("#choose-1-btn");
-const choose2Btn = document.querySelector("#choose-2-btn");
-const choose3Btn = document.querySelector("#choose-3-btn");
+const chooseBtns = document.querySelectorAll(".choose-btn");
 const closeFrom1Btn = document.querySelector("#close-from-1-Btn");
 const formStep1 = document.querySelector('form[name="form-step-1"]');
-const process1_1 = document.querySelector("#process-1-1");
-const process1_2 = document.querySelector("#process-1-2");
-const process1_3 = document.querySelector("#process-1-3");
+const step1Process = document.querySelectorAll(".step1-process");
+const formStep1Btns = document.querySelector("#form-step-1-btns");
 
 let currentChoose = null;
 
-// 將 process-1-X 元素添加到表單中
-choose1Btn.addEventListener("click", () => {
-  updateFormContent(process1_1, "choose-1");
-});
-
-choose2Btn.addEventListener("click", () => {
-  updateFormContent(process1_2, "choose-2");
-});
-
-choose3Btn.addEventListener("click", () => {
-  updateFormContent(process1_3, "choose-3");
-});
-
 function updateFormContent(processElement, chooseClass) {
+  formStep1Btns.classList.remove("hidden");
   if (currentChoose !== chooseClass) {
     formStep1.innerHTML = processElement.outerHTML; // 直接複製整個 HTML 內容
-    adjustContainerHeight();
     currentChoose = chooseClass;
   }
 }
 
+chooseBtns.forEach((chooseBtn, index) => {
+  chooseBtn.addEventListener("click", () => {
+    updateFormContent(step1Process[index], index);
+  });
+});
+
 closeFrom1Btn.addEventListener("click", () => {
   formStep1.innerHTML = "";
   currentChoose = null;
-  adjustContainerHeight();
+  formStep1Btns.classList.add("hidden");
 });
-
-function adjustContainerHeight() {
-  $animContainer.css({
-    paddingBottom: $('.js-form-step[data-step="1"]').height() + "px",
-  });
-}
-
-function validateFormInputs(currentForm) {
-  const submitButtonId = currentForm.find('button[type="submit"]').attr("id");
-  if (submitButtonId === "nextBtnFormStep1") {
-    switch (currentChoose) {
-      case "choose-1":
-        // A139220848;
-        if (!checkID(currentForm.find("#IDNumber").val())) {
-          return false;
-        }
-        // 5338324803977657;
-        if (!validCardNumber(currentForm.find("#creditCardNumber").val())) {
-          return false;
-        }
-        if (
-          !validCardMonthYear(
-            currentForm.find("#creditCardMonth").val(),
-            currentForm.find("#creditCardYear").val()
-          )
-        ) {
-          return false;
-        }
-        break;
-      case "choose-2":
-        if (!validBankSelect(currentForm.find("#bankSelect").val())) {
-          return false;
-        }
-        // 5338324803977657;
-        if (!validCardNumber(currentForm.find("#creditCardNumber").val())) {
-          return false;
-        }
-        if (
-          !isValidTaiwanMobileNumber(
-            currentForm.find("#taiwanMobileNumber").val()
-          )
-        ) {
-          return false;
-        }
-        break;
-      case "choose-3":
-        if (currentForm.find("#yourName").val() === "") {
-          alert("請輸入名字");
-          return false;
-        }
-        // A139220848;
-        if (!checkID(currentForm.find("#IDNumber").val())) {
-          return false;
-        }
-        if (
-          !isValidTaiwanMobileNumber(
-            currentForm.find("#taiwanMobileNumber").val()
-          )
-        ) {
-          return false;
-        }
-        break;
-      default:
-        const choose = document.querySelector("#choose");
-        choose.style.animation = "shake 0.5s ease";
-        choose.addEventListener("animationend", () => {
-          // 動畫結束後移除震動效果
-          choose.style.animation = "";
-        });
-        return false;
-    }
-  } else if (submitButtonId === "nextBtnFormStep2") {
-  } else if (submitButtonId === "nextBtnFormStep3") {
-  } else if (submitButtonId === "nextBtnFormStep4") {
-  }
-
-  return true;
-}
 
 // -------process 2---------
 
@@ -331,11 +269,7 @@ function showImagePreview(file, index) {
   const allowedExtensions = /(\.jpg|\.jpeg)$/i;
   const maxSize = 30 * 1024 * 1024; // 30MB in bytes
 
-  if (
-    !file.type.match(/^image\//) ||
-    !allowedExtensions.exec(file.name) ||
-    file.size > maxSize
-  ) {
+  if (!allowedExtensions.exec(file.name) || file.size > maxSize) {
     alert("請上傳 JPG 或 JPEG 格式且大小不超過 30MB 的檔案。");
     readURLs[index].value = ""; // Clear the input
     return;
@@ -735,8 +669,9 @@ addressCountys.forEach((addressCounty, index) => {
       );
 
       if (countyData) {
-        addressLocalities[index].innerHTML =
-          "<option selected>(市區鄉鎮)</option>";
+        addressLocalities[
+          index
+        ].innerHTML = `<option value="${0}" selected>(市區鄉鎮)</option>`;
         countyData.districts.forEach((district) => {
           const option = document.createElement("option");
           option.value = district.name;
@@ -744,8 +679,9 @@ addressCountys.forEach((addressCounty, index) => {
           addressLocalities[index].appendChild(option);
         });
       } else {
-        addressLocalities[index].innerHTML =
-          "<option selected>(市區鄉鎮)</option>";
+        addressLocalities[
+          index
+        ].innerHTML = `<option value="${0}" selected>(市區鄉鎮)</option>`;
       }
     } catch (error) {
       console.error("Error fetching JSON data:", error);
@@ -766,12 +702,18 @@ expands3.forEach((expand3, index) => {
 const sameAddress = document.querySelector("#sameAddress");
 const Select = document.querySelector("#ResidentialAddressSelect");
 const Input = document.querySelector("#ResidentialAddressInput");
+const CountyOfResidence = document.querySelector("#CountyOfResidence");
+const LocalitieResidence = document.querySelector("#LocalitieResidence");
 sameAddress.addEventListener("change", (event) => {
   if (event.target.checked) {
     Select.classList.add("hidden");
+    CountyOfResidence.classList.remove("check");
+    LocalitieResidence.classList.remove("check");
     Input.classList.add("hidden");
   } else {
     Select.classList.remove("hidden");
+    CountyOfResidence.classList.add("check");
+    LocalitieResidence.classList.add("check");
     Input.classList.remove("hidden");
   }
 });
@@ -871,7 +813,7 @@ seniorityStartSelect.addEventListener("change", () => {
 
   if (startYear > 0) {
     const defaultOption = document.createElement("option");
-    defaultOption.value = "";
+    defaultOption.value = "0";
     defaultOption.textContent = "(結束年分)";
     seniorityEndSelect.appendChild(defaultOption);
 
@@ -885,3 +827,105 @@ seniorityStartSelect.addEventListener("change", () => {
 });
 
 // -------process 4---------
+// ---------驗證---------
+async function validateFormInputs(currentForm) {
+  let isValid = true;
+  const submitButtonId = currentForm.find('button[type="submit"]').attr("id");
+  if (submitButtonId === "nextBtnFormStep1") {
+    switch (currentChoose) {
+      case 0:
+        // A139220848;
+        if (!checkID(currentForm.find("#IDNumber").val())) {
+          isValid = false;
+        }
+        // 5338324803977657;
+        if (!validCardNumber(currentForm.find("#creditCardNumber").val())) {
+          isValid = false;
+        }
+        if (
+          !validCardMonthYear(
+            currentForm.find("#creditCardMonth").val(),
+            currentForm.find("#creditCardYear").val()
+          )
+        ) {
+          isValid = false;
+        }
+        break;
+      case 1:
+        if (!validBankSelect(currentForm.find("#bankSelect").val())) {
+          isValid = false;
+        }
+        // 5338324803977657;
+        if (!validCardNumber(currentForm.find("#creditCardNumber").val())) {
+          isValid = false;
+        }
+        if (
+          !isValidTaiwanMobileNumber(
+            currentForm.find("#taiwanMobileNumber").val()
+          )
+        ) {
+          isValid = false;
+        }
+        break;
+      case 2:
+        if (currentForm.find("#yourName").val() === "") {
+          alert("請輸入名字");
+          isValid = false;
+        }
+        // A139220848;
+        if (!checkID(currentForm.find("#IDNumber").val())) {
+          isValid = false;
+        }
+        if (
+          !isValidTaiwanMobileNumber(
+            currentForm.find("#taiwanMobileNumber").val()
+          )
+        ) {
+          isValid = false;
+        }
+        break;
+      default:
+        const choose = document.querySelector("#choose");
+        choose.style.animation = "shake 0.5s ease";
+        choose.addEventListener("animationend", () => {
+          // 動畫結束後移除震動效果
+          choose.style.animation = "";
+        });
+        isValid = false;
+    }
+  } else if (submitButtonId === "nextBtnFormStep2") {
+    if (
+      !imagePreviews[2].getAttribute("src") ||
+      !imagePreviews[3].getAttribute("src")
+    ) {
+      alert("請上傳身分證正反面！");
+      isValid = false;
+    }
+    if (
+      !imagePreviews[4].getAttribute("src") ||
+      !imagePreviews[5].getAttribute("src")
+    ) {
+      alert("至少要有兩個財力證明");
+      isValid = false;
+    }
+  } else if (submitButtonId === "nextBtnFormStep3") {
+    const checks = document.querySelectorAll(".check");
+    checks.forEach((check) => {
+      if (
+        check.value === "0" ||
+        check.value === "" ||
+        check.value === "(請選擇)"
+      ) {
+        check.classList.add("invalid");
+        isValid = false;
+        return;
+      } else {
+        check.classList.remove("invalid");
+      }
+    });
+  } else if (submitButtonId === "nextBtnFormStep4") {
+    console.log("我是第四步");
+  }
+
+  return isValid;
+}

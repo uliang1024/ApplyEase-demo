@@ -50,6 +50,7 @@ import getChatGPT from "./routes/getChatGPT.js";
 import cardApplyProcess from "./routes/card-apply-process.js";
 import user from "./routes/user.js";
 import mongodb from "./routes/mongodb.js";
+import errorPage from "./routes/errorPage.js";
 
 app.use(index);
 app.use(cardApply);
@@ -57,6 +58,7 @@ app.use(getChatGPT);
 app.use(cardApplyProcess);
 app.use(user);
 app.use(mongodb);
+app.use(errorPage);
 
 // error handler
 app.use(function (err, req, res, next) {

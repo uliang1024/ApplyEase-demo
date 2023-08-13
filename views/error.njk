@@ -1,0 +1,25 @@
+{% extends 'util/base.njk' %}
+{% block title %}{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="/css/main.css"/>
+{% endblock %}
+{% block header %}{% endblock %}
+{% block error %}
+  <div id="error" class="d-flex justify-content-center align-items-center flex-column">
+    <h1>404</h1>
+    <div class="cloak__wrapper">
+      <div class="cloak__container">
+        <div class="cloak"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h2>很抱歉，找不到該頁面</h2>
+      <p>
+      我們相當確定該頁面曾經在這裡，但似乎已經消失了。 我們代表它道歉。
+    </p>
+      <a href="/" >回首頁</a>
+    </div>
+  </div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block script %}{% endblock %}

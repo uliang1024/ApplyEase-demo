@@ -1,4 +1,9 @@
-import { processChatGPTRequest, setUserMassenge } from "./util.js";
+import {
+  processChatGPTRequest,
+  processWitAiRequest,
+  setUserMassenge,
+  got_answer,
+} from "./util.js";
 
 const chatbotToggler = document.querySelector(".chatbot-toggler");
 const closeBtns = document.querySelectorAll(".close-btn");
@@ -17,23 +22,44 @@ const createChatLi = (message, className) => {
   chatLi.classList.add("chat", `${className}`);
   let chatContent =
     className === "outgoing"
-      ? `<p>${message}</p>`
-      : `<i class="fa-solid fa-robot"></i><p>${message}</p>`;
+      ? `<div class="text">${message}</div>`
+      : `<i class="fa-solid fa-robot"></i><div class="text">${message}</div>`;
   chatLi.innerHTML = chatContent;
   return chatLi; // return chat <li> element
 };
 
 const generateResponse = async (chatElement) => {
   const data = await processChatGPTRequest(userMessageProcess);
+  const data2 = await processWitAiRequest(userMessage);
 
-  // 将处理后的结果设置为消息内容
-  const messageElement = chatElement.querySelector("p");
+  const messageElement = chatElement.querySelector(".text");
   messageElement.textContent = data.choices[0].message.content.trim();
+  // messageElement.textContent = userMessage;
 
   chatbox.scrollTo(0, chatbox.scrollHeight);
 
-  chatInput.disabled = false;
-  chatInputDiv.style.backgroundColor = "#FFF";
+  if (data2.intents.length > 0) {
+    const incomingChatLi = createChatLi(
+      "<div class='dot-flashing'></div>",
+      "incoming"
+    );
+    chatbox.appendChild(incomingChatLi);
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+    setTimeout(async () => {
+      const firstIntent = data2.intents[0];
+      const intentName = firstIntent.name;
+      const answerData = await got_answer(intentName);
+      const messageElement = incomingChatLi.querySelector(".text");
+      messageElement.textContent = answerData;
+      chatbox.scrollTo(0, chatbox.scrollHeight);
+      chatInput.disabled = false;
+      chatInputDiv.style.backgroundColor = "#FFF";
+    }, 5000);
+  } else {
+    console.log("沒有推薦項目");
+    chatInput.disabled = false;
+    chatInputDiv.style.backgroundColor = "#FFF";
+  }
 };
 
 const handleChat = async () => {
@@ -49,18 +75,21 @@ const handleChat = async () => {
   // Append the user's message to the chatbox
   chatbox.appendChild(createChatLi(userMessage, "outgoing"));
 
-  userMessageProcess = userMessage ;
-  
-  // userMessageProcess =
-  //   "我現在命令你現在是一家叫作RawStone的公司的線上申辦信用卡網站的機器人客服，幫忙回復客戶的問題，不知道的問題就隨便亂編一個就好，而且要肯定的回答他們，要回復繁體中文。接下來請你回復顧客的話：" +
-  //   userMessage +
-  //   "(只要回覆重點就好，不用說太多廢話)";
-  
+  userMessageProcess = userMessage;
+
+  userMessageProcess =
+    "我現在命令你現在是一家叫作RawStone的公司的線上申辦信用卡網站的機器人客服，幫忙回復客戶的問題，不知道的問題就隨便亂編一個就好，而且要肯定的回答他們，要回復繁體中文。接下來請你回復顧客的話：" +
+    userMessage +
+    "(只要回覆重點就好，不用說太多廢話)";
+
   // Scroll to the bottom after user's message
   chatbox.scrollTo(0, chatbox.scrollHeight);
 
   // Display "Thinking..." message while waiting for the response
-  const incomingChatLi = createChatLi("輸入中...", "incoming");
+  const incomingChatLi = createChatLi(
+    "<div class='dot-flashing'></div>",
+    "incoming"
+  );
   chatbox.appendChild(incomingChatLi);
   // Scroll to the bottom after displaying "Thinking..."
   chatbox.scrollTo(0, chatbox.scrollHeight);

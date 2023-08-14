@@ -47,6 +47,7 @@ app.use(
 import index from "./routes/index.js";
 import cardApply from "./routes/card-apply.js";
 import getChatGPT from "./routes/getChatGPT.js";
+import witai from "./routes/witai.js";
 import cardApplyProcess from "./routes/card-apply-process.js";
 import user from "./routes/user.js";
 import mongodb from "./routes/mongodb.js";
@@ -59,6 +60,7 @@ app.use(cardApplyProcess);
 app.use(user);
 app.use(mongodb);
 app.use(errorPage);
+app.use(witai);
 
 // error handler
 app.use(function (err, req, res, next) {

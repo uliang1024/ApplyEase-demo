@@ -37,7 +37,7 @@ export function checkID(idStr) {
   let total = 0;
   let regExpID = /^[a-z](1|2)\d{8}$/i;
   if (idStr.search(regExpID) == -1) {
-    alert("請仔細填寫身份證號碼");
+    alert("請仔細填寫身份證號碼，範例：A154375166");
     return false;
   } else {
     firstChar = idStr.charAt(0).toUpperCase();
@@ -68,7 +68,7 @@ export function checkID(idStr) {
 export function validCardNumber(numb) {
   const regex = /^[0-9]{13,19}$/;
   if (!regex.test(numb)) {
-    alert("請輸入有效的信用卡卡號！");
+    alert("請輸入有效的信用卡卡號！範例：4532185076667110");
     return false;
   }
   const isValid = luhnck(numb);
